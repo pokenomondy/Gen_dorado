@@ -21,5 +21,4 @@
     <string name="Okbotonnoinicio">Entendido</string>
     <string name="noinicio">No pudo iniciar sesión, intente nuevamente</string>7
     <string name="cerrarsesion">Cerrar sesión</string>
-    <string name="cambio">Cambio</string>
 </resources>
