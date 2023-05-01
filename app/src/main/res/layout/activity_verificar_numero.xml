@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Verificar_numero"
+    android:background="@color/fondo_verificar">
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/btn_send_verificarnumero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <EditText
+            android:id="@+id/editcodver1"
+            android:layout_width="25dp"
+            android:textAlignment="center"
+            android:layout_height="40dp"
+            android:inputType="number"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"/>
+
+        <EditText
+            android:id="@+id/editcodver2"
+            android:layout_width="25dp"
+            android:textAlignment="center"
+            android:layout_height="40dp"
+            android:inputType="number"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"/>
+
+        <EditText
+            android:id="@+id/editcodver3"
+            android:layout_width="25dp"
+            android:textAlignment="center"
+            android:layout_height="40dp"
+            android:inputType="number"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"/>
+
+        <EditText
+            android:id="@+id/editcodver4"
+            android:layout_width="25dp"
+            android:textAlignment="center"
+            android:layout_height="40dp"
+            android:inputType="number"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp" />
+
+        <EditText
+            android:id="@+id/editcodver5"
+            android:layout_width="25dp"
+            android:textAlignment="center"
+            android:layout_height="40dp"
+            android:inputType="number"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"/>
+
+        <EditText
+            android:id="@+id/editcodver6"
+            android:layout_width="25dp"
+            android:textAlignment="center"
+            android:layout_height="40dp"
+            android:inputType="number"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <Button
+        android:id="@+id/btn_send_verificarnumero"
+        style="@style/boton_redondo_blanco"
+        android:layout_width="178dp"
+        android:layout_height="33dp"
+        android:layout_marginBottom="232dp"
+        android:onClick="accion_verificarnumero"
+        android:text="@string/verificar_codgio"
+        app:layout_constraintBottom_toTopOf="@+id/prueba1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="284dp"
+        android:text="@string/ingrese_codigo_verificacion"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/prueba1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/aplicacion"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/prueba2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/prueba2"
+        android:layout_width="55dp"
+        android:layout_height="17dp"
+        android:text="@string/año"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/white"
+        android:textAlignment="center"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

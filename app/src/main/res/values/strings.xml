@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">gen_dorado_oficial</string>
+    <string name="ingrse_su_numero">Ingrese su numero:</string>
+    <string name="numero_de_telefono">Numero de telefono</string>
+    <string name="Enviar_SMS">Enviar SMS</string>
+    <string name="aplicacion">Aplicación Generación Dorada</string>
+    <string name="año">2023</string>
+    <string name="verificar_codgio">Verificar codigo</string>
+    <string name="ingrese_codigo_verificacion">Ingrese el codigo de verificación</string>
+    <string name="mensaje_espera">Mensaje de espera Cambiante</string>
+    <string name="Nombres">Nombres:</string>
+    <string name="apellidos">Apellidos:</string>
+    <string name="cedula">Cedula:</string>
+    <string name="rol">Rol:</string>
+    <string name="ingresesunombre">Ingrese sus nombres</string>
+    <string name="ingresesusapelldios">Ingrese sus apellidos</string>
+    <string name="ingresesucedula">Ingrese su cedula</string>
+    <string name="seleccione">Seleccione</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="HOLAPERSONA">Hola [PERSONA]</string>
+    <string name="Okbotonnoinicio">Entendido</string>
+    <string name="noinicio">No pudo iniciar sesión, intente nuevamente</string>7
+    <string name="cerrarsesion">Cerrar sesión</string>
+</resources>
