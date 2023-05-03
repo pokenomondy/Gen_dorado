@@ -12,9 +12,12 @@
         android:theme="@style/Theme.Gen_dorado_oficial"
         tools:targetApi="31">
         <activity
+            android:name=".Medicamentos"
+            android:exported="false" />
+        <activity
             android:name=".DashboardUser"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".RegistroNuevoUsuario"
             android:exported="false"
