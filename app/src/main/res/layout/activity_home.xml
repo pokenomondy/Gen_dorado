@@ -10,7 +10,126 @@
         android:id="@+id/toolbar_home"
         layout="@layout/toolbar_home"/>
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_home"
+        app:layout_constraintVertical_bias="0.038">
 
 
+        <!--ACUDIENTES-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/vista_Acudiente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bienvenidoacudiente"
+                android:layout_marginLeft="10dp"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_familiares"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"/>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!--PACIENTES-->
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/vistapaciente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bienvenido"
+                    android:layout_marginLeft="10dp"/>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/noboton_medicamentos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/morado"
+                android:orientation="vertical"
+                android:gravity="left"
+                android:layout_margin="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Mednicamentos"
+                    style="@style/dashboard_user_grande"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Agregarmedicamento"
+                    style="@style/dashboard_user_pequeño"/>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/morado"
+                android:orientation="vertical"
+                android:gravity="left"
+                android:layout_margin="30dp"
+                android:id="@+id/nobotonminijuegos">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/juegos"
+                    style="@style/dashboard_user_grande"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Entrena_tu_mente"
+                    style="@style/dashboard_user_pequeño"/>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!--FAB , BOTON VOLADOR-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_add"
+        android:id="@+id/floatbutton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
