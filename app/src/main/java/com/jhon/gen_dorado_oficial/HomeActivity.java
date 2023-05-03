@@ -1,5 +1,6 @@
 package com.jhon.gen_dorado_oficial;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,13 +48,14 @@ public class HomeActivity extends AppCompatActivity{
     FirebaseDatabase firebaseDatabase;
     DatabaseReference BASE_DE_DATOS;
 
-    Button buscar_paciente;
-    EditText familiarcedula,apodofamiliar;
+
+    EditText apodofamiliar;
     LinearLayoutCompat vista_paciente,vista_acudiente;
     RecyclerView recycler_familiares;
     List<Familiares> familiaresList;
     Familiares_adaptador familiares_adaptador;
     LinearLayoutCompat noboton_medicamentos,nobotonminijuegos;
+    FloatingActionButton floatbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +64,7 @@ public class HomeActivity extends AppCompatActivity{
 
 
         toolbarhome = findViewById(R.id.toolbar_home);
-        buscar_paciente = findViewById(R.id.buscar_paciente);
         setSupportActionBar(toolbarhome);
-        familiarcedula = findViewById(R.id.familiarcedula);
-        apodofamiliar = findViewById(R.id.apodofamiliar);
         //VISTAS
         vista_acudiente = findViewById(R.id.vista_Acudiente);
         vista_paciente = findViewById(R.id.vistapaciente);
@@ -81,6 +81,10 @@ public class HomeActivity extends AppCompatActivity{
         firebaseDatabase = FirebaseDatabase.getInstance();
         BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
         updatenombretoolbar();
+
+        //Float Buttón
+
+        floatbutton = findViewById(R.id.floatbutton);
 
 
     }
@@ -164,21 +168,64 @@ public class HomeActivity extends AppCompatActivity{
                 Toast.makeText(HomeActivity.this,"sirve boton",Toast.LENGTH_SHORT).show();
             }
         });
+
+        floatbutton.setVisibility(View.GONE);
     }
 
     //De aqui pa abajo, cuando sean acudientess
     private void esAcudiente() {
         //botón para registrar nuevo paciente
-        buscar_paciente.setOnClickListener(new View.OnClickListener() {
+        floatbutton.setVisibility(View.VISIBLE);
+
+        //float button
+        floatbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Dialog dialog = new Dialog(HomeActivity.this);
+                dialog.setContentView(R.layout.item_add_familiar);
+                Button btnsendfamiliar;
+                EditText cedulafamiliar;
+                EditText familiarapodo;
+                familiarapodo = dialog.findViewById(R.id.familiarapodo);
+                cedulafamiliar = dialog.findViewById(R.id.cedulafamiliar);
+                btnsendfamiliar = dialog.findViewById(R.id.btnsendfamiliar);
 
-                cargardatosesAcudiente();
-                Toast.makeText(HomeActivity.this,"Funciona el boton",Toast.LENGTH_SHORT).show();
-                //Agregar paciente nuevo, vamos a ver
+                //Cuando se oprima el botón dentro del dialog
+                btnsendfamiliar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Query query = BASE_DE_DATOS.orderByChild("num_cedula").equalTo(cedulafamiliar.getText().toString());
+                        query.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot ds : snapshot.getChildren()){
+                                    //OBTENER VALORES DE BASE DA DATOS
+                                    String nombre = ""+ds.child("Nombre").getValue();
+                                    String cedula = ""+ds.child("num_cedula").getValue();
+                                    String  uid = ""+ds.child("uid").getValue();
 
+
+                                    //AGREGR NUEVO PACIENTE
+                                    Familiares familiar = new Familiares(cedula,nombre,familiarapodo.getText().toString(),uid);
+                                    BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("familiar").push().setValue(familiar);
+                                    dialog.dismiss();
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(HomeActivity.this,"Esta mal la cedula",Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                });
+                dialog.show();
             }
         });
+
+
 
         //Recycler de paciente
         recycler_familiares.setLayoutManager(new LinearLayoutManager(this));
@@ -206,32 +253,7 @@ public class HomeActivity extends AppCompatActivity{
 
     }
 
-    private void cargardatosesAcudiente() {
-        Query query = BASE_DE_DATOS.orderByChild("num_cedula").equalTo(familiarcedula.getText().toString());
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()){
-                    //OBTENER VALORES DE BASE DA DATOS
-                    String nombre = ""+ds.child("Nombre").getValue();
-                    String cedula = ""+ds.child("num_cedula").getValue();
-                    String  uid = ""+ds.child("uid").getValue();
 
-
-                    //AGREGR NUEVO PACIENTE
-                    Familiares familiar = new Familiares(cedula,nombre,apodofamiliar.getText().toString(),uid);
-                    BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("familiar").push().setValue(familiar);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomeActivity.this,"Esta mal la cedula",Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
 
     //Metodos cuando sean PACIENTES
 }

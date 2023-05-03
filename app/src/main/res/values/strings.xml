@@ -30,5 +30,15 @@
     <string name="Agregarmedicamento">Agrega medicamentos</string>
     <string name="juegos">Juegos</string>
     <string name="Entrena_tu_mente">Entrena tu mente</string>
+    <string name="agreguesufamiiar">Digite la cedula para agregar a su familiar</string>
+    <string name="cedula_familiar">Cedula familiar</string>
+    <string name="enviar">Enviar</string>
+    <string name="apodofamiliar">Ingrese apodo</string>
+    <string name="bienbenida_medicamentos">No olvides tomar tus medicamentos dentro\nde la hora establecida por tu doctor</string>
+    <string name="tiempo">00hr</string>
+    <string name="MEDICAMENTO">[MEDICAMENTO]</string>
+    <string name="Siguiente_medicamento">Siguiente medicamento dentro de x horas y x minutos</string>
+    <string name="horadetomar">00:00 (am/pm)</string>
+
 
 </resources>

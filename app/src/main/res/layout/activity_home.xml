@@ -44,26 +44,6 @@
                 android:layout_marginTop="15dp"/>
 
 
-            <EditText
-                android:id="@+id/familiarcedula"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="familiar cedula" />
-
-            <EditText
-                android:id="@+id/apodofamiliar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Apodo familiar" />
-
-            <Button
-                android:id="@+id/buscar_paciente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enviar" />
-
-
-
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <!--PACIENTES-->
@@ -74,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
@@ -141,5 +121,15 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!--FAB , BOTON VOLADOR-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_add"
+        android:id="@+id/floatbutton"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
