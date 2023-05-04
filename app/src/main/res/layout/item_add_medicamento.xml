@@ -24,32 +24,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="medicamento"
-            android:id="@+id/cedulafamiliar"/>
+            android:id="@+id/nombremedicamento"/>
 
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="dosis, cuantas debe tomar"
-            android:id="@+id/Dosis"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="fehcainicio"
-            android:id="@+id/medic"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Hora inicio"
-            android:id="@+id/medicasa"/>
+            android:id="@+id/dosismedicamento"/>
 
 
         <!---BOTON PARA CERRAR DIALOG-->
 
         <Button
-            android:id="@+id/btnsendfamiliar"
+            android:id="@+id/btnsendmedicamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Registrar"/>

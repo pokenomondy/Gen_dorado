@@ -20,6 +20,7 @@
             android:background="@drawable/circulo_medicamento">
 
             <TextView
+                android:id="@+id/dosisintervalo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tiempo"/>
@@ -37,11 +38,13 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/medicamentonombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/MEDICAMENTO"/>
 
                 <TextView
+                    android:id="@+id/horaaplicacion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/horadetomar"/>
@@ -54,6 +57,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/siguientemedicamento"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Siguiente_medicamento"/>
