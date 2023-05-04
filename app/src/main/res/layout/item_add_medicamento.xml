@@ -31,7 +31,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="dosis, cuantas debe tomar"
-            android:id="@+id/dosismedicamento"/>
+            android:id="@+id/dosismedicamento"
+            android:inputType="number"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="intervalo de tiempo"
+            android:id="@+id/dosisintervalo"
+            android:inputType="number"/>
 
 
         <!---BOTON PARA CERRAR DIALOG-->

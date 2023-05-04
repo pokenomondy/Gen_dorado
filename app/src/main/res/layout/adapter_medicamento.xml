@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:layout_marginBottom="10dp">
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -17,13 +18,16 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:background="@drawable/circulo_medicamento">
+            android:background="@drawable/circulo_medicamento"
+            android:layout_gravity="center"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/dosisintervalo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tiempo"/>
+                android:text="@string/tiempo"
+                android:textColor="#0000FF"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -41,13 +45,20 @@
                     android:id="@+id/medicamentonombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/MEDICAMENTO"/>
+                    android:text="@string/MEDICAMENTO"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="5dp"/>
 
                 <TextView
                     android:id="@+id/horaaplicacion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/horadetomar"/>
+                    android:text="@string/horadetomar"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="10dp"/>
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -60,6 +71,10 @@
                     android:id="@+id/siguientemedicamento"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="5dp"
                     android:text="@string/Siguiente_medicamento"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
