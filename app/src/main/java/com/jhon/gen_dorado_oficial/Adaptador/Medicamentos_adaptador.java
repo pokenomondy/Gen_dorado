@@ -33,7 +33,8 @@ public class Medicamentos_adaptador extends RecyclerView.Adapter<Medicamentos_ad
     public void onBindViewHolder(@NonNull MedicamentosViewHolder holder, int position) {
         Medicamentos medicamento = medicamentos.get(position);
         holder.medicamentonombre.setText(medicamento.getMedicamento());
-        holder.dosisintervalo.setText(medicamento.getDosis());
+        // Se tiene que obtener, el valor del string en este INT, para que se setee el texto
+        holder.dosisintervalo.setText(medicamento.getIntervaloaplicacion());
         holder.horaaplicacion.setText(medicamento.getHorario().toString());
         holder.siguientemedicamento.setText(medicamento.getCalcsigmedicamento());
     }

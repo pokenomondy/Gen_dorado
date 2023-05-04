@@ -2,6 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <permission android:name="com.example.myapp.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <uses-permission android:name="com.example.myapp.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -19,7 +30,11 @@
             android:exported="false" />
         <activity
             android:name=".Medicamentos"
-            android:exported="false" />
+            android:exported="false" >
+            <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".DashboardUser"
             android:exported="false"

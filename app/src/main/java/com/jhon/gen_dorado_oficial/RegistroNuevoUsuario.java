@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +52,9 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //lo seleccionado en el spinner
+                String seleccionado = spinnerrol.getSelectedItem().toString();
+                //meter en base de datos
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 //obtener UID
                 assert user != null;
@@ -66,7 +70,7 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
                 DatosUsuario.put("Nombre",name);
                 DatosUsuario.put("Apellido",apellido);
                 DatosUsuario.put("num_cedula",num_cedula);
-                DatosUsuario.put("rol",rol);
+                DatosUsuario.put("rol",seleccionado);
                 // Espacio para imagen
                 DatosUsuario.put("imagen","");
                 DatosUsuario.put("Numero de celular",user.getPhoneNumber());
@@ -85,15 +89,4 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
 
     }
 
-    public void mostrarselecccionador(View view){
-        String seleccionado = spinnerrol.getSelectedItem().toString();
-        if (seleccionado.equals("Paciente")){
-            Toast.makeText(RegistroNuevoUsuario.this,"Paciente",Toast.LENGTH_SHORT).show();
-            editrol="Paciente";
-            return;
-        } else if (seleccionado.equals("Acudiente")) {
-            Toast.makeText(RegistroNuevoUsuario.this,"Acudiente",Toast.LENGTH_SHORT).show();
-            editrol="Acudiente";
-        }
-    }
 }

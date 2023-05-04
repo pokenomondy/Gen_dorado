@@ -3,10 +3,17 @@ package com.jhon.gen_dorado_oficial;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.pm.PackageManager;
 import android.database.DataSetObserver;
 import android.hardware.lights.LightState;
 import android.os.Build;
@@ -16,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,10 +36,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.jhon.gen_dorado_oficial.Adaptador.Medicamentos_adaptador;
 import com.jhon.gen_dorado_oficial.Objetos.Familiares;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Medicamentos extends AppCompatActivity {
     RecyclerView recycler_medicamentos;
@@ -40,10 +52,12 @@ public class Medicamentos extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference BASE_DE_DATOS;
     //Lista
-    List<com.jhon.gen_dorado_oficial.Objetos.Medicamentos> medicamentoList ;
+    List<com.jhon.gen_dorado_oficial.Objetos.Medicamentos> medicamentoList;
     //adaptador
     Medicamentos_adaptador medicamentos_adapter;
     FloatingActionButton floatbutton;
+    //notificaciones
+    private static final String CHANNEL_ID = "canal";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +75,19 @@ public class Medicamentos extends AppCompatActivity {
         BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
         //adaptador
         recycler_medicamentos.setLayoutManager(new LinearLayoutManager(this));
-        medicamentos_adapter =  new Medicamentos_adaptador(medicamentoList);
+        medicamentos_adapter = new Medicamentos_adaptador(medicamentoList);
         recycler_medicamentos.setAdapter(medicamentos_adapter);
         //floatbutto
         floatbutton = findViewById(R.id.floatbuttonmedicamento);
 
 
-        //AHORA LLAMAMOS PARA ACTUALIZAR Y EMPEZAR A METER DATOS
+        //AHORA LLAMAMOS PARA ACTUALIZAR Y EMPEZAR A METER DATOS AL RECYLER
         BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange( DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 medicamentoList.removeAll(medicamentoList);
-                for (DataSnapshot snapshot:
-                        dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot :
+                        dataSnapshot.getChildren()) {
                     com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamento = snapshot.getValue(com.jhon.gen_dorado_oficial.Objetos.Medicamentos.class);
                     medicamentoList.add(medicamento);
                 }
@@ -95,27 +109,28 @@ public class Medicamentos extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
+                mostrarNotification();
                 Dialog dialog = new Dialog(Medicamentos.this);
                 dialog.setContentView(R.layout.item_add_medicamento);
                 Button btnsendmedicamento;
                 EditText nombremedicamento;
-                EditText dosismedicamento;
+                EditText dosismedicamento, intervaloaplicacion;
 
                 btnsendmedicamento = dialog.findViewById(R.id.btnsendmedicamento);
                 nombremedicamento = dialog.findViewById(R.id.nombremedicamento);
                 dosismedicamento = dialog.findViewById(R.id.dosismedicamento);
-                //hora
-                LocalDateTime ahora = LocalDateTime.now();
-                DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-                String fechaHoraActual = ahora.format(formato);
+                intervaloaplicacion = dialog.findViewById(R.id.dosisintervalo);
+                //fecha y hora, toca arreglar porque no se obtiene bien el tiempo  java.util
 
-
-
+                Date currentDate = Calendar.getInstance().getTime();
                 //oprimir boton dentro del dialog
+
                 btnsendmedicamento.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos("Acetaminofen","8:30pm","12:00","siguiente en","2","2");
+                        //convertir a numero la dosis
+                        int dosisnum = Integer.parseInt(dosismedicamento.getText().toString());
+                        com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), "8:00pm", dosisnum, "siguiente en", currentDate, "3hr");
                         BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").push().setValue(medicamentos);
                         dialog.dismiss();
                     }
@@ -124,4 +139,43 @@ public class Medicamentos extends AppCompatActivity {
             }
         });
     }
+
+    private void mostrarNotification() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "NEW", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            manager.createNotificationChannel(channel);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
+                    CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_add)
+                    .setContentTitle("Notification")
+                    .setContentText("pruebanotificacion")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            managerCompat.notify(1, builder.build());
+        } else {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
+                    CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_add)
+                    .setContentTitle("Notification")
+                    .setContentText("pruebanotificacion")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
+            managerCompat.notify(1, builder.build());
+        }
+    }
+
+
+
+
 }

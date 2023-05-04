@@ -1,27 +1,30 @@
 package com.jhon.gen_dorado_oficial.Objetos;
 
-import com.google.type.Date;
+import com.google.firebase.database.DataSnapshot;
 import com.google.type.DateTime;
 
+import java.util.Date;
+
 public class Medicamentos {
-    String medicamento; //nombre medcamento
+    String medicamento; //nombre medicamento
     String horario; //cada cuanto se debe tomar
-    String dosis; //cuantas debe tomar
+    int dosis; //cuantas debe tomar
     String calcsigmedicamento;
-    String fechainicio; //cuando empezo
-    String horainicio; //a que horas empezo
+    java.util.Date fechainicio; //cuando empezo
+
+    String intervaloaplicacion;
 
 
     public Medicamentos() {
     }
 
-    public Medicamentos(String medicamento, String horario, String dosis, String calcsigmedicamento, String fechainicio, String horainicio) {
+    public Medicamentos(String medicamento, String horario, int dosis, String calcsigmedicamento, Date fechainicio, String intervaloaplicacion) {
         this.medicamento = medicamento;
         this.horario = horario;
         this.dosis = dosis;
         this.calcsigmedicamento = calcsigmedicamento;
         this.fechainicio = fechainicio;
-        this.horainicio = horainicio;
+        this.intervaloaplicacion = intervaloaplicacion;
     }
 
     public String getMedicamento() {
@@ -40,11 +43,11 @@ public class Medicamentos {
         this.horario = horario;
     }
 
-    public String getDosis() {
+    public int getDosis() {
         return dosis;
     }
 
-    public void setDosis(String dosis) {
+    public void setDosis(int dosis) {
         this.dosis = dosis;
     }
 
@@ -56,20 +59,20 @@ public class Medicamentos {
         this.calcsigmedicamento = calcsigmedicamento;
     }
 
-    public String getFechainicio() {
+    public java.util.Date getFechainicio() {
         return fechainicio;
     }
 
-    public void setFechainicio(String fechainicio) {
+    public void setFechainicio(Date fechainicio) {
         this.fechainicio = fechainicio;
     }
 
-    public String getHorainicio() {
-        return horainicio;
+    public String getIntervaloaplicacion() {
+        return intervaloaplicacion;
     }
 
-    public void setHorainicio(String horainicio) {
-        this.horainicio = horainicio;
+    public void setIntervaloaplicacion(String intervaloaplicacion) {
+        this.intervaloaplicacion = intervaloaplicacion;
     }
 
 }
