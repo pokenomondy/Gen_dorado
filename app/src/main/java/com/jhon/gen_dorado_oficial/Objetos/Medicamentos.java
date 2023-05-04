@@ -5,19 +5,21 @@ import com.google.type.DateTime;
 
 public class Medicamentos {
     String medicamento; //nombre medcamento
-    DateTime horario; //cada cuanto se debe tomar
-    int dosis; //cuantas debe tomar
-    Date fechainicio; //cuando empezo
-    DateTime horainicio; //a que horas empezo
+    String horario; //cada cuanto se debe tomar
+    String dosis; //cuantas debe tomar
+    String calcsigmedicamento;
+    String fechainicio; //cuando empezo
+    String horainicio; //a que horas empezo
+
 
     public Medicamentos() {
-
     }
 
-    public Medicamentos(String medicamento, DateTime horario, int dosis, Date fechainicio, DateTime horainicio) {
+    public Medicamentos(String medicamento, String horario, String dosis, String calcsigmedicamento, String fechainicio, String horainicio) {
         this.medicamento = medicamento;
         this.horario = horario;
         this.dosis = dosis;
+        this.calcsigmedicamento = calcsigmedicamento;
         this.fechainicio = fechainicio;
         this.horainicio = horainicio;
     }
@@ -30,35 +32,43 @@ public class Medicamentos {
         this.medicamento = medicamento;
     }
 
-    public DateTime getHorario() {
+    public String getHorario() {
         return horario;
     }
 
-    public void setHorario(DateTime horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
 
-    public int getDosis() {
+    public String getDosis() {
         return dosis;
     }
 
-    public void setDosis(int dosis) {
+    public void setDosis(String dosis) {
         this.dosis = dosis;
     }
 
-    public Date getFechainicio() {
+    public String getCalcsigmedicamento() {
+        return calcsigmedicamento;
+    }
+
+    public void setCalcsigmedicamento(String calcsigmedicamento) {
+        this.calcsigmedicamento = calcsigmedicamento;
+    }
+
+    public String getFechainicio() {
         return fechainicio;
     }
 
-    public void setFechainicio(Date fechainicio) {
+    public void setFechainicio(String fechainicio) {
         this.fechainicio = fechainicio;
     }
 
-    public DateTime getHorainicio() {
+    public String getHorainicio() {
         return horainicio;
     }
 
-    public void setHorainicio(DateTime horainicio) {
+    public void setHorainicio(String horainicio) {
         this.horainicio = horainicio;
     }
 }
