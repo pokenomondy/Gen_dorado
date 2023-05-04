@@ -39,6 +39,7 @@
     <string name="MEDICAMENTO">[MEDICAMENTO]</string>
     <string name="Siguiente_medicamento">Siguiente medicamento dentro de x horas y x minutos</string>
     <string name="horadetomar">00:00 (am/pm)</string>
+    <string name="minijuego_1">Recuerda el\n patron</string>
 
 
 </resources>

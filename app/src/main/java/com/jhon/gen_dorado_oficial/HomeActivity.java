@@ -165,7 +165,8 @@ public class HomeActivity extends AppCompatActivity{
         nobotonminijuegos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this,"sirve boton",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this,Minijuegos.class);
+                startActivity(intent);
             }
         });
 

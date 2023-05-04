@@ -12,6 +12,12 @@
         android:theme="@style/Theme.Gen_dorado_oficial"
         tools:targetApi="31">
         <activity
+            android:name=".recordarPatrones"
+            android:exported="false" />
+        <activity
+            android:name=".Minijuegos"
+            android:exported="false" />
+        <activity
             android:name=".Medicamentos"
             android:exported="false" />
         <activity
