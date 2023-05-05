@@ -124,7 +124,7 @@ public class Medicamentos {
     }
 
     public String getIntervaloaplicacion() {
-        return intervaloaplicacion + "hr";
+        return intervaloaplicacion;
     }
 
     public void setIntervaloaplicacion(String intervaloaplicacion) {
