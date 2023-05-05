@@ -7,10 +7,20 @@
     tools:context=".recordarPatrones"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/puntuacionJuego"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Puntuacion: 0"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="100dp">
+
+    </TextView>
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:padding="10dp">
 
         <TableRow
@@ -145,7 +155,7 @@
             android:id="@+id/btnreiniciar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reiniciar"
+            android:text="@string/reinit_text"
             android:backgroundTint="@color/purple_200"
             android:textStyle="bold"
             android:textColor="@color/white"></Button>
@@ -154,7 +164,7 @@
             android:id="@+id/btnsalir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Salir"
+            android:text="@string/exit_text"
             android:backgroundTint="@color/purple_200"
             android:textStyle="bold"
             android:textColor="@color/white"></Button>

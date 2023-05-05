@@ -42,8 +42,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class Medicamentos extends AppCompatActivity {
     RecyclerView recycler_medicamentos;
@@ -121,16 +123,29 @@ public class Medicamentos extends AppCompatActivity {
                 dosismedicamento = dialog.findViewById(R.id.dosismedicamento);
                 intervaloaplicacion = dialog.findViewById(R.id.dosisintervalo);
                 //fecha y hora, toca arreglar porque no se obtiene bien el tiempo  java.util
-
-                Date currentDate = Calendar.getInstance().getTime();
+                Calendar fecha = Calendar.getInstance();
+                int año = fecha.get(Calendar.YEAR);
+                int mes = fecha.get(Calendar.MONTH) + 1;
+                int dia = fecha.get(Calendar.DAY_OF_MONTH);
+                int hora = fecha.get(Calendar.HOUR_OF_DAY);
+                int minuto = fecha.get(Calendar.MINUTE);
+                int segundo = fecha.get(Calendar.SECOND);
                 //oprimir boton dentro del dialog
+                Map<String, Integer> fechaR = new HashMap<>();
+                fechaR.put("dia", dia);
+                fechaR.put("mes", mes);
+                fechaR.put("año", año);
+                fechaR.put("hora", hora);
+                fechaR.put("minuto", minuto);
+                fechaR.put("segundo", segundo);
+
 
                 btnsendmedicamento.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //convertir a numero la dosis
                         int dosisnum = Integer.parseInt(dosismedicamento.getText().toString());
-                        com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), "8:00pm", dosisnum, "siguiente en", currentDate, "3hr");
+                        com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR, intervaloaplicacion.getText().toString());
                         BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").push().setValue(medicamentos);
                         dialog.dismiss();
                     }
