@@ -34,7 +34,7 @@ public class Medicamentos_adaptador extends RecyclerView.Adapter<Medicamentos_ad
         Medicamentos medicamento = medicamentos.get(position);
         holder.medicamentonombre.setText(medicamento.getMedicamento());
         // Se tiene que obtener, el valor del string en este INT, para que se setee el texto
-        holder.dosisintervalo.setText(medicamento.getIntervaloaplicacion());
+        holder.dosisintervalo.setText(medicamento.getIntervaloaplicacion()+"hr");
         holder.horaaplicacion.setText(medicamento.getHorario());
         holder.siguientemedicamento.setText(medicamento.getCalcsigmedicamento());
     }
