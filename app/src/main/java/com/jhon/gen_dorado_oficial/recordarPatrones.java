@@ -3,18 +3,20 @@ package com.jhon.gen_dorado_oficial;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.logging.Handler;
+import java.util.logging.ConsoleHandler;
 import java.util.logging.LogRecord;
 
 public class recordarPatrones extends AppCompatActivity {
@@ -24,6 +26,7 @@ public class recordarPatrones extends AppCompatActivity {
     ImageButton[] tablero = new ImageButton[16];
 
     Button btn_reiniciar, btn_salir;
+    TextView puntajeText;
 
     int puntuacion;
     int aciertos;
@@ -37,20 +40,7 @@ public class recordarPatrones extends AppCompatActivity {
     ImageButton primero;
     int numeroPrimero, numeroSegundo;
     boolean bloqueo = false;
-    final Handler handler = new Handler() {
-        @Override
-        public void publish(LogRecord logRecord) {
-        }
-
-        @Override
-        public void flush() {
-        }
-
-        @Override
-        public void close() throws SecurityException {
-        }
-    };
-
+    final android.os.Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +113,7 @@ public class recordarPatrones extends AppCompatActivity {
 
     private void cargarImagenes(){
         imagenes = new int[]{
+                R.drawable.imgre00,
                 R.drawable.imgre01,
                 R.drawable.imgre02,
                 R.drawable.imgre03,
@@ -145,16 +136,99 @@ public class recordarPatrones extends AppCompatActivity {
         return resultado;
     }
 
+
+    private void cargarTexViews(){
+        puntajeText = findViewById(R.id.puntuacionJuego);
+    }
+
+
+    private void comprobar(int i, final ImageButton imgb){
+        if (primero == null){
+            primero = imgb;
+            primero.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            primero.setImageResource(imagenes[arrayDesordenada.get(i)]);
+            primero.setEnabled(false);
+            numeroPrimero = arrayDesordenada.get(i);
+        }else {
+            bloqueo = true;
+            imgb.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imgb.setImageResource(imagenes[arrayDesordenada.get(i)]);
+            imgb.setEnabled(false);
+            numeroSegundo = arrayDesordenada.get(i);
+            if (numeroPrimero == numeroSegundo){
+                primero = null;
+                bloqueo = false;
+                aciertos++;
+                puntuacion++;
+                puntajeText.setText("Puntuacion: " + puntuacion);
+                if(aciertos == imagenes.length){
+                    Toast.makeText(this, "Haz acertado todas las imagenes correctamente!", Toast.LENGTH_SHORT).show();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(recordarPatrones.this, "Iniciando nueva ronda!", Toast.LENGTH_SHORT).show();
+                            init();
+                        }
+                    },1500);
+                }
+            }else{
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        primero.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        primero.setImageResource(fondo);
+                        primero.setEnabled(true);
+
+                        imgb.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        imgb.setImageResource(fondo);
+                        imgb.setEnabled(true);
+
+                        bloqueo = false;
+                        primero = null;
+                    }
+                },1000);
+
+            }
+        }
+    }
+
     private void init(){
         cargarTablero();
         cargarBotones();
+        cargarTexViews();
         cargarPuntuacion();
         cargarImagenes();
         arrayDesordenada = barajar(imagenes.length);
-        for(int i=0; i<12; i++){
+
+        for(int i=0; i<tablero.length ; i++){
             tablero[i].setScaleType(ImageView.ScaleType.CENTER_CROP);
             tablero[i].setImageResource(imagenes[arrayDesordenada.get(i)]);
+
         }
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0; i<tablero.length ; i++){
+                    tablero[i].setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    tablero[i].setImageResource(fondo);
+                }
+            }
+        },1000);
+
+        for(int i=0; i<tablero.length; i++){
+            final int j = i;
+            tablero[i].setEnabled(true);
+            tablero[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(!bloqueo){
+                        comprobar(j, tablero[j]);
+                    }
+                }
+            });
+        }
+
     }
 
 }
