@@ -11,17 +11,19 @@ public class Medicamentos {
     String intervaloaplicacion;
 
     private  String id; //Variable de id del nodo, para poder entrar
+    int num_tomado ; //numero pastilla tomado
 
 
     public Medicamentos() {
     }
 
-    public Medicamentos(String medicamento, int dosis, Map<String, Integer> fechainicio, String intervaloaplicacion, String id) {
+    public Medicamentos(String medicamento, int dosis, Map<String, Integer> fechainicio, String intervaloaplicacion, String id, int num_tomado) {
         this.medicamento = medicamento;
         this.dosis = dosis;
         this.fechainicio = fechainicio;
         this.intervaloaplicacion = intervaloaplicacion;
         this.id = id;
+        this.num_tomado = num_tomado;
     }
 
     public String getMedicamento() {
@@ -140,5 +142,13 @@ public class Medicamentos {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getNum_tomado() {
+        return num_tomado;
+    }
+
+    public void setNum_tomado(int num_tomado) {
+        this.num_tomado = num_tomado;
     }
 }
