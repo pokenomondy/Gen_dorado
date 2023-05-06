@@ -1,13 +1,8 @@
 package com.jhon.gen_dorado_oficial.Objetos;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.type.DateTime;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.logging.SimpleFormatter;
 
 public class Medicamentos {
     String medicamento; //nombre medicamento
@@ -80,12 +75,14 @@ public class Medicamentos {
         int hora_init = (int) this.fechainicio.get("hora");
         int min_init = (int) this.fechainicio.get("minuto");
         int sec_init = (int) this.fechainicio.get("segundo");
-        Date inicio = new Date(año_init,mes_init,dia_init,hora_init,min_init,sec_init);
 
-        return inicio;
+        Calendar fecha_inicio = Calendar.getInstance();
+        fecha_inicio.set( año_init, mes_init - 1, dia_init, hora_init, min_init, sec_init);
+        return fecha_inicio.getTime();
     }
 
-    public String getCalcsigmedicamento() {
+
+    public String getCalcsigmedicamento(){
 
         Date inicio = obtenerFechaInicio();
         int intervalo_medicamento = Integer.parseInt(this.intervaloaplicacion);
@@ -100,20 +97,23 @@ public class Medicamentos {
 
        //MILISEGUNDOS
         long diferencia = fecha_inicio_add.getTime() - fecha_ahora.getTime();
+        long moduloHoras = 24;
+        int suma = 0;
+
+        if(intervalo_medicamento >= 24){
+            moduloHoras = intervalo_medicamento;
+        }
+
         //HORAS
-        long diferencia_minutos
-                = (diferencia
-                / (1000 * 60))
-                % 60;
+        int diferencia_minutos = (int)(diferencia / (1000 * 60)) % 60;
+        int diferencia_horas = (int) (diferencia/(1000 * 60 * 60));
 
-        long diferencia_horas
-                = (diferencia
-                / (1000 * 60 * 60))
-                % 24;
-
-        return "Siguiente en " +  diferencia_horas + " horas y " + diferencia_minutos + " minutos";
+        if (diferencia_horas < 0 || diferencia_minutos < 0){
+            return "Retrasado en " + (diferencia_horas * -1) + " horas y " + (diferencia_minutos * -1) + " minutos";
+        }else {
+            return "Siguiente en " + diferencia_horas + " horas y " + diferencia_minutos + " minutos";
+        }
     }
-
 
     public Map<String, Integer> getFechainicio() {
         return fechainicio;
