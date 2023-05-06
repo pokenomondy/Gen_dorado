@@ -42,6 +42,9 @@
     <string name="minijuego_1">Recuerda el\n patron</string>
     <string name="reinit_text">Reiniciar</string>
     <string name="exit_text">Salir</string>
+    <string name="Registromedicamento">Registro medicamento</string>
+    <string name="Medicamento">Medicamento</string>
+    <string name="nombredemedicamento">Medicamento</string>
 
 
 </resources>

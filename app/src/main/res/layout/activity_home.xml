@@ -64,7 +64,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bienvenido"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="20dp"/>
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -73,10 +74,13 @@
                 android:id="@+id/noboton_medicamentos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/morado"
                 android:orientation="vertical"
                 android:gravity="left"
-                android:layout_margin="30dp">
+                android:layout_margintop="30dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/medicamentos_dash">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -96,11 +100,17 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/morado"
                 android:orientation="vertical"
                 android:gravity="left"
-                android:layout_margin="30dp"
-                android:id="@+id/nobotonminijuegos">
+                android:layout_margintop="15dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+
+
+
+                android:id="@+id/nobotonminijuegos"
+                android:background="@drawable/juego_dash">
 
                 <TextView
                     android:layout_width="wrap_content"

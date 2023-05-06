@@ -3,10 +3,19 @@ package com.jhon.gen_dorado_oficial;
 import static android.widget.Toast.LENGTH_SHORT;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Spanned;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,7 +38,9 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Verificar_numero extends AppCompatActivity {
@@ -56,6 +67,121 @@ public class Verificar_numero extends AppCompatActivity {
         editCodigoVer4 = findViewById(R.id.editcodver4);
         editCodigoVer5 = findViewById(R.id.editcodver5);
         editCodigoVer6 = findViewById(R.id.editcodver6);
+        //Permitir que los edittext solo permitan ingresar una variable, y no hacer enter
+        editCodigoVer1.setSingleLine(true);
+        editCodigoVer2.setSingleLine(true);
+        editCodigoVer3.setSingleLine(true);
+        editCodigoVer4.setSingleLine(true);
+        editCodigoVer5.setSingleLine(true);
+        editCodigoVer6.setSingleLine(true);
+        //focus en editver1 y mostrar teclado obligado
+        editCodigoVer1.requestFocus();
+        editCodigoVer1.setInputType(InputType.TYPE_CLASS_NUMBER);
+        // Abrimos el teclado numérico
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editCodigoVer1, InputMethodManager.SHOW_IMPLICIT);
+        /*/Listeners para pasar de 1 en 1
+        editCodigoVer1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    editCodigoVer2.requestFocus();
+                    editCodigoVer2.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(editCodigoVer2, InputMethodManager.SHOW_IMPLICIT);
+                    editCodigoVer2.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                editCodigoVer3.requestFocus();
+                                editCodigoVer3.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.showSoftInput(editCodigoVer1, InputMethodManager.SHOW_IMPLICIT);
+                                editCodigoVer3.addTextChangedListener(new TextWatcher() {
+                                    @Override
+                                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                                        editCodigoVer4.requestFocus();
+                                        editCodigoVer4.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                        imm.showSoftInput(editCodigoVer1, InputMethodManager.SHOW_IMPLICIT);
+                                        editCodigoVer4.addTextChangedListener(new TextWatcher() {
+                                            @Override
+                                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                            }
+
+                                            @Override
+                                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                                editCodigoVer5.requestFocus();
+                                                editCodigoVer5.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                                imm.showSoftInput(editCodigoVer1, InputMethodManager.SHOW_IMPLICIT);
+                                                editCodigoVer5.addTextChangedListener(new TextWatcher() {
+                                                    @Override
+                                                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                                    }
+
+                                                    @Override
+                                                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                                        editCodigoVer6.requestFocus();
+                                                        editCodigoVer6.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                                        imm.showSoftInput(editCodigoVer1, InputMethodManager.SHOW_IMPLICIT);
+                                                    }
+
+                                                    @Override
+                                                    public void afterTextChanged(Editable s) {
+
+                                                    }
+                                                });
+                                            }
+
+                                            @Override
+                                            public void afterTextChanged(Editable s) {
+
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                                    }
+
+                                    @Override
+                                    public void afterTextChanged(Editable s) {
+
+                                    }
+                                });
+                        }
+
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }
+
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        /*/
+        //Variables de bases de datos
+
         mAuth = FirebaseAuth.getInstance();
         prueba1 = findViewById(R.id.prueba1);
         prueba2 = findViewById(R.id.prueba2);
