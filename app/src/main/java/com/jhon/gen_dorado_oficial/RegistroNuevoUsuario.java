@@ -52,36 +52,53 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                /*/Verificador de que pongan todas las variables, las que se deben poner son:
+                Nombre
+                Apellido
+                Cedula
+                rol
+                /*/
                 //lo seleccionado en el spinner
                 String seleccionado = spinnerrol.getSelectedItem().toString();
                 //meter en base de datos
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                //obtener UID
-                assert user != null;
-                String uid = user.getUid();
-                String name = editnombre.getText().toString();
-                String num_cedula = editcedula.getText().toString();
-                String rol = editrol;
-                String apellido = editapellido.getText().toString();
 
-                HashMap<Object,String> DatosUsuario = new HashMap<>();
 
-                DatosUsuario.put("uid",uid);
-                DatosUsuario.put("Nombre",name);
-                DatosUsuario.put("Apellido",apellido);
-                DatosUsuario.put("num_cedula",num_cedula);
-                DatosUsuario.put("rol",seleccionado);
-                // Espacio para imagen
-                DatosUsuario.put("imagen","");
-                DatosUsuario.put("Numero de celular",user.getPhoneNumber());
+                if (editnombre.getText().toString().isEmpty()||editapellido.getText().toString().isEmpty()||
+                editcedula.getText().toString().isEmpty()||seleccionado.isEmpty()){
+                    Toast.makeText(RegistroNuevoUsuario.this,"Se deben llenar todas las casillas",Toast.LENGTH_SHORT);
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference reference = database.getReference("USUARIOS");
-                reference.child(uid).setValue(DatosUsuario);
-                Toast.makeText(RegistroNuevoUsuario.this,"Registro exitoso",Toast.LENGTH_SHORT).show();
+                }else{
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    //obtener UID
+                    assert user != null;
+                    String uid = user.getUid();
+                    String name = editnombre.getText().toString();
+                    String num_cedula = editcedula.getText().toString();
+                    String rol = editrol;
+                    String apellido = editapellido.getText().toString();
 
-                Intent ahome = new Intent(RegistroNuevoUsuario.this,HomeActivity.class);
-                startActivity(ahome);
+                    HashMap<Object,String> DatosUsuario = new HashMap<>();
+
+                    DatosUsuario.put("uid",uid);
+                    DatosUsuario.put("Nombre",name);
+                    DatosUsuario.put("Apellido",apellido);
+                    DatosUsuario.put("num_cedula",num_cedula);
+                    DatosUsuario.put("rol",seleccionado);
+                    // Espacio para imagen
+                    DatosUsuario.put("imagen","");
+                    DatosUsuario.put("Numero de celular",user.getPhoneNumber());
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference reference = database.getReference("USUARIOS");
+                    reference.child(uid).setValue(DatosUsuario);
+                    Toast.makeText(RegistroNuevoUsuario.this,"Registro exitoso",Toast.LENGTH_SHORT).show();
+
+                    Intent ahome = new Intent(RegistroNuevoUsuario.this,HomeActivity.class);
+                    startActivity(ahome);
+                }
+
+
+
 
 
             }

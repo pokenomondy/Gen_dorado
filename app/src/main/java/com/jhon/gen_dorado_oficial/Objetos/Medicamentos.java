@@ -15,15 +15,18 @@ public class Medicamentos {
     Map<String, Integer> fechainicio; //cuando empezo
     String intervaloaplicacion;
 
+    private  String id; //Variable de id del nodo, para poder entrar
+
 
     public Medicamentos() {
     }
 
-    public Medicamentos(String medicamento, int dosis, Map<String, Integer> fechainicio, String intervaloaplicacion) {
+    public Medicamentos(String medicamento, int dosis, Map<String, Integer> fechainicio, String intervaloaplicacion, String id) {
         this.medicamento = medicamento;
         this.dosis = dosis;
         this.fechainicio = fechainicio;
         this.intervaloaplicacion = intervaloaplicacion;
+        this.id = id;
     }
 
     public String getMedicamento() {
@@ -131,4 +134,11 @@ public class Medicamentos {
         this.intervaloaplicacion = intervaloaplicacion;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

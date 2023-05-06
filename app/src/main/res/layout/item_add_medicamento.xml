@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
-    android:layout_height="300dp"
-    android:padding="10dp"
+    android:layout_width="350dp"
+    android:layout_height="350dp"
+    android:padding="4dp"
     android:background="#fff"
     android:layout_gravity="center">
 
@@ -12,43 +12,171 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <!---TEXT-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "@string/agreguesufamiiar"/>
+            android:text = "@string/Registromedicamento"/>
 
-        <!---Edit text de cedula-->
-
-        <EditText
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="medicamento"
-            android:id="@+id/nombremedicamento"/>
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Medicamento"
+                        style="@style/textestiloadd"/>
 
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="dosis, cuantas debe tomar"
-            android:id="@+id/dosismedicamento"
-            android:inputType="number"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="intervalo de tiempo"
-            android:id="@+id/dosisintervalo"
-            android:inputType="number"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-        <!---BOTON PARA CERRAR DIALOG-->
 
-        <Button
-            android:id="@+id/btnsendmedicamento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Registrar"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/nombredemedicamento"
+                    android:id="@+id/nombremedicamento"
+                    style="@style/texview_morado_rendondo"
+                    android:textAlignment="center"
+                    android:padding="20px"/>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dosis"
+                        style="@style/textestiloadd"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Tabletas a tomar"
+                    android:id="@+id/dosismedicamento"
+                    android:inputType="number"
+                    style="@style/texview_morado_rendondo"
+                    android:textAlignment="center"
+                    android:padding="20px"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Aplicación"
+                        style="@style/textestiloadd"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Cada cuanto se toma?"
+                    android:id="@+id/dosisintervalo"
+                    android:inputType="number"
+                    style="@style/texview_morado_rendondo"
+                    android:textAlignment="center"
+                    android:padding="20px"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnsendmedicamento"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Aceptar"
+                        style="@style/boton_redondo_morado" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <Button
+                    android:id="@+id/btneliminarmedicamento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Borrar"/>
+
+
+
+
+
+
+
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -25,7 +25,8 @@
             android:layout_height="40dp"
             android:inputType="number"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="3dp"/>
+            android:layout_marginLeft="3dp"
+            android:maxLength="1"/>
 
         <EditText
             android:id="@+id/editcodver2"
@@ -34,7 +35,8 @@
             android:layout_height="40dp"
             android:inputType="number"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="3dp"/>
+            android:layout_marginLeft="3dp"
+            android:maxLength="1"/>
 
         <EditText
             android:id="@+id/editcodver3"
@@ -43,7 +45,8 @@
             android:layout_height="40dp"
             android:inputType="number"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="3dp"/>
+            android:layout_marginLeft="3dp"
+            android:maxLength="1"/>
 
         <EditText
             android:id="@+id/editcodver4"
@@ -52,7 +55,8 @@
             android:layout_height="40dp"
             android:inputType="number"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="3dp" />
+            android:layout_marginLeft="3dp"
+            android:maxLength="1"/>
 
         <EditText
             android:id="@+id/editcodver5"
@@ -61,7 +65,8 @@
             android:layout_height="40dp"
             android:inputType="number"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="3dp"/>
+            android:layout_marginLeft="3dp"
+            android:maxLength="1"/>
 
         <EditText
             android:id="@+id/editcodver6"
@@ -70,7 +75,8 @@
             android:layout_height="40dp"
             android:inputType="number"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="3dp"/>
+            android:layout_marginLeft="3dp"
+            android:maxLength="1"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
