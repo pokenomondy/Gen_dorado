@@ -143,11 +143,13 @@ public class Medicamentos extends AppCompatActivity {
                 btnsendmedicamento.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //convertir a numero la dosis
-                        int dosisnum = Integer.parseInt(dosismedicamento.getText().toString());
-                        com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR, intervaloaplicacion.getText().toString());
-                        BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").push().setValue(medicamentos);
-                        dialog.dismiss();
+                            //convertir a numero la dosis
+                            DatabaseReference medicamentoid = FirebaseDatabase.getInstance().getReference("Medicamentos");
+                            String medicamentokey = medicamentoid.push().getKey();
+                            int dosisnum = Integer.parseInt(dosismedicamento.getText().toString());
+                            com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR, intervaloaplicacion.getText().toString(),medicamentokey);
+                            BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentokey).setValue(medicamentos);
+                            dialog.dismiss();
                     }
                 });
                 dialog.show();
