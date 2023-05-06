@@ -33,6 +33,14 @@
 
     </style>
 
+    <style name="textestiloadd"
+        parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginLeft">10dp</item>
+
+    </style>
+
     <style name="dashboard_user_grande"
         parent="Widget.AppCompat.TextView">
         <item name="android:textSize">30sp</item>

@@ -1,8 +1,11 @@
     package com.jhon.gen_dorado_oficial.Adaptador;
 
+    import android.app.Dialog;
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
+    import android.widget.Button;
+    import android.widget.EditText;
     import android.widget.ImageView;
     import android.widget.TextView;
     import android.widget.Toast;
@@ -11,12 +14,16 @@
     import androidx.recyclerview.widget.RecyclerView;
 
     import com.google.firebase.auth.FirebaseAuth;
+    import com.google.firebase.auth.FirebaseUser;
     import com.google.firebase.database.DatabaseReference;
     import com.google.firebase.database.FirebaseDatabase;
     import com.jhon.gen_dorado_oficial.Objetos.Medicamentos;
     import com.jhon.gen_dorado_oficial.R;
 
+    import java.util.Calendar;
+    import java.util.HashMap;
     import java.util.List;
+    import java.util.Map;
 
     public class Medicamentos_adaptador extends RecyclerView.Adapter<Medicamentos_adaptador.MedicamentosViewHolder> {
 
@@ -60,8 +67,88 @@
                     Toast.makeText(v.getContext(), medicamentoId, Toast.LENGTH_SHORT).show();
 
                 }
+
+            });
+            //icon de editar
+            holder.icon_edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseAuth firebaseAuth;
+                    FirebaseUser firebaseUser;
+                    FirebaseDatabase firebaseDatabase;
+                    DatabaseReference BASE_DE_DATOS;
+                    //Firebase
+                    firebaseAuth = FirebaseAuth.getInstance();
+                    firebaseUser = firebaseAuth.getCurrentUser();
+                    firebaseDatabase = FirebaseDatabase.getInstance();
+                    BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
+                    Dialog dialog = new Dialog(v.getContext());
+                    dialog.setContentView(R.layout.item_add_medicamento);
+                    Button btnsendmedicamento,btneliminarmedicamento;
+                    EditText nombremedicamento;
+                    EditText dosismedicamento, intervaloaplicacion;
+
+                    btnsendmedicamento = dialog.findViewById(R.id.btnsendmedicamento);
+                    nombremedicamento = dialog.findViewById(R.id.nombremedicamento);
+                    dosismedicamento = dialog.findViewById(R.id.dosismedicamento);
+                    intervaloaplicacion = dialog.findViewById(R.id.dosisintervalo);
+                    btneliminarmedicamento = dialog.findViewById(R.id.btneliminarmedicamento);
+
+                    //fecha y hora, toca arreglar porque no se obtiene bien el tiempo  java.util
+                    Calendar fecha = Calendar.getInstance();
+                    int año = fecha.get(Calendar.YEAR);
+                    int mes = fecha.get(Calendar.MONTH) + 1;
+                    int dia = fecha.get(Calendar.DAY_OF_MONTH);
+                    int hora = fecha.get(Calendar.HOUR_OF_DAY);
+                    int minuto = fecha.get(Calendar.MINUTE);
+                    int segundo = fecha.get(Calendar.SECOND);
+                    //oprimir boton dentro del dialog
+                    Map<String, Integer> fechaR = new HashMap<>();
+                    fechaR.put("dia", dia);
+                    fechaR.put("mes", mes);
+                    fechaR.put("año", año);
+                    fechaR.put("hora", hora);
+                    fechaR.put("minuto", minuto);
+                    fechaR.put("segundo", segundo);
+
+                    //btn actualizar datos
+                    btnsendmedicamento.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //convertir a numero la dosis
+                            String medicamentosid = medicamento.getId();
+                            int dosisnum = Integer.parseInt(dosismedicamento.getText().toString());
+                            com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR, intervaloaplicacion.getText().toString(),medicamentosid);
+                            BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentosid).setValue(medicamentos);
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+
+                    //btn eliminar
+
+                    btneliminarmedicamento.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            DatabaseReference BASE_DE_DATOS;
+                            FirebaseDatabase firebaseDatabase;
+                            firebaseDatabase = FirebaseDatabase.getInstance();
+                            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                            String medicamentoId = medicamento.getId();
+                            BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
+                            DatabaseReference medicamentoREF = BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId);
+                            medicamentoREF.removeValue();
+                            Toast.makeText(v.getContext(), medicamentoId, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+                }
             });
         }
+
+
+
 
         @Override
         public int getItemCount() {
@@ -70,7 +157,7 @@
 
         public static class MedicamentosViewHolder extends RecyclerView.ViewHolder{
             TextView dosisintervalo,medicamentonombre,horaaplicacion,siguientemedicamento;
-            ImageView icon_delete;
+            ImageView icon_delete, icon_edit;
             public MedicamentosViewHolder(@NonNull View itemView) {
                 super(itemView);
                 dosisintervalo = itemView.findViewById(R.id.dosisintervalo);
@@ -78,6 +165,7 @@
                 horaaplicacion = itemView.findViewById(R.id.horaaplicacion);
                 siguientemedicamento = itemView.findViewById(R.id.siguientemedicamento);
                 icon_delete = itemView.findViewById(R.id.icon_delete);
+                icon_edit = itemView.findViewById(R.id.icon_edit);
             }
 
         }
