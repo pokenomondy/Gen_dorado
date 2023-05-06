@@ -115,10 +115,11 @@
                     btnsendmedicamento.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            int numtomado = Integer.parseInt(String.valueOf(medicamento.getNum_tomado()));
                             //convertir a numero la dosis
                             String medicamentosid = medicamento.getId();
                             int dosisnum = Integer.parseInt(dosismedicamento.getText().toString());
-                            com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR, intervaloaplicacion.getText().toString(),medicamentosid);
+                            com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR, intervaloaplicacion.getText().toString(),medicamentosid,numtomado);
                             BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentosid).setValue(medicamentos);
                             dialog.dismiss();
                         }
@@ -145,6 +146,37 @@
 
                 }
             });
+            //icon de registrar tomado
+            holder.icn_registrar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(),"sumar",Toast.LENGTH_SHORT).show();
+                    FirebaseAuth firebaseAuth;
+                    FirebaseDatabase firebaseDatabase;
+                    DatabaseReference BASE_DE_DATOS;
+                    //Firebase
+                    firebaseAuth = FirebaseAuth.getInstance();
+                    firebaseDatabase = FirebaseDatabase.getInstance();
+                    BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
+                    //variables
+                    int numtomado = Integer.parseInt(String.valueOf(medicamento.getNum_tomado()));
+                    int numnuevotomado = numtomado+1;
+                    String medicamentosid = medicamento.getId();
+                    BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentosid).child("num_tomado").setValue(numnuevotomado);
+                    int dosisactual = medicamento.getDosis();
+
+                    if (numnuevotomado==dosisactual){
+                        firebaseDatabase = FirebaseDatabase.getInstance();
+                        String medicamentoId = medicamento.getId();
+                        BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
+                        DatabaseReference medicamentoREF = BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId);
+                        medicamentoREF.removeValue();
+                        Toast.makeText(v.getContext(), medicamentoId, Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+            });
         }
 
 
@@ -157,7 +189,7 @@
 
         public static class MedicamentosViewHolder extends RecyclerView.ViewHolder{
             TextView dosisintervalo,medicamentonombre,horaaplicacion,siguientemedicamento;
-            ImageView icon_delete, icon_edit;
+            ImageView icon_delete, icon_edit,icn_registrar;
             public MedicamentosViewHolder(@NonNull View itemView) {
                 super(itemView);
                 dosisintervalo = itemView.findViewById(R.id.dosisintervalo);
@@ -166,6 +198,7 @@
                 siguientemedicamento = itemView.findViewById(R.id.siguientemedicamento);
                 icon_delete = itemView.findViewById(R.id.icon_delete);
                 icon_edit = itemView.findViewById(R.id.icon_edit);
+                icn_registrar= itemView.findViewById(R.id.icn_registrar);
             }
 
         }
