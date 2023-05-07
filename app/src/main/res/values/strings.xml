@@ -46,6 +46,9 @@
     <string name="Medicamento">Medicamento</string>
     <string name="nombredemedicamento">Medicamento</string>
     <string name="med_ver">Ver medicamentos</string>
+    <string name="dosis">[D]</string>
+    <string name="horatomada">[HORA TOMADA]</string>
+    <string name="atrasadoono">[RETRASADO / NO]</string>
 
 
 </resources>

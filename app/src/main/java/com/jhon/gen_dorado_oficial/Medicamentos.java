@@ -130,7 +130,6 @@ public class Medicamentos extends AppCompatActivity {
                 int hora = fecha.get(Calendar.HOUR_OF_DAY);
                 int minuto = fecha.get(Calendar.MINUTE);
                 int segundo = fecha.get(Calendar.SECOND);
-                //oprimir boton dentro del dialog
                 Map<String, Integer> fechaR = new HashMap<>();
                 fechaR.put("dia", dia);
                 fechaR.put("mes", mes);
@@ -138,7 +137,7 @@ public class Medicamentos extends AppCompatActivity {
                 fechaR.put("hora", hora);
                 fechaR.put("minuto", minuto);
                 fechaR.put("segundo", segundo);
-
+                //oprimir boton dentro del dialog
 
                 btnsendmedicamento.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -147,7 +146,7 @@ public class Medicamentos extends AppCompatActivity {
                             DatabaseReference medicamentoid = FirebaseDatabase.getInstance().getReference("Medicamentos");
                             String medicamentokey = medicamentoid.push().getKey();
                             int dosisnum = Integer.parseInt(dosismedicamento.getText().toString());
-                            com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR, intervaloaplicacion.getText().toString(),medicamentokey);
+                            com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR, intervaloaplicacion.getText().toString(),medicamentokey,0);
                             BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentokey).setValue(medicamentos);
                             dialog.dismiss();
                     }

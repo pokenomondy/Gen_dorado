@@ -74,6 +74,19 @@
                     android:id="@+id/icon_edit"
                     android:background="@color/white"/>
 
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_edit"
+                    android:id="@+id/icn_registrar"
+                    android:background="@color/white"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/icon_delete"
+                    android:id="@+id/icon_historial"
+                    android:background="@color/white"/>
+
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
