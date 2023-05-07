@@ -45,6 +45,9 @@
     <string name="Registromedicamento">Registro medicamento</string>
     <string name="Medicamento">Medicamento</string>
     <string name="nombredemedicamento">Medicamento</string>
+    <string name="dosis">[D]</string>
+    <string name="horatomada">[HORA TOMADA]</string>
+    <string name="atrasadoono">[RETRASADO / NO]</string>
 
 
 </resources>
