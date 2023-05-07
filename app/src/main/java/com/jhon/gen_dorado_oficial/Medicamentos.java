@@ -130,7 +130,6 @@ public class Medicamentos extends AppCompatActivity {
                 int hora = fecha.get(Calendar.HOUR_OF_DAY);
                 int minuto = fecha.get(Calendar.MINUTE);
                 int segundo = fecha.get(Calendar.SECOND);
-                //oprimir boton dentro del dialog
                 Map<String, Integer> fechaR = new HashMap<>();
                 fechaR.put("dia", dia);
                 fechaR.put("mes", mes);
@@ -138,7 +137,7 @@ public class Medicamentos extends AppCompatActivity {
                 fechaR.put("hora", hora);
                 fechaR.put("minuto", minuto);
                 fechaR.put("segundo", segundo);
-
+                //oprimir boton dentro del dialog
 
                 btnsendmedicamento.setOnClickListener(new View.OnClickListener() {
                     @Override
