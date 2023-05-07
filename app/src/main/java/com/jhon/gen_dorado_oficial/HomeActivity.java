@@ -1,16 +1,18 @@
 package com.jhon.gen_dorado_oficial;
 
 import android.app.Dialog;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -20,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.Data;
+import androidx.work.WorkManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,12 +36,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.jhon.gen_dorado_oficial.Adaptador.Familiares_adaptador;
 import com.jhon.gen_dorado_oficial.Objetos.Familiares;
-import com.squareup.picasso.Picasso;
+import com.jhon.gen_dorado_oficial.servicios.workerService;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import kotlin.collections.ArrayDeque;
+import java.util.UUID;
 
 
 public class HomeActivity extends AppCompatActivity{
@@ -56,6 +59,9 @@ public class HomeActivity extends AppCompatActivity{
     Familiares_adaptador familiares_adaptador;
     LinearLayoutCompat noboton_medicamentos,nobotonminijuegos;
     FloatingActionButton floatbutton;
+
+
+    private Context thisContext=this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +92,29 @@ public class HomeActivity extends AppCompatActivity{
 
         floatbutton = findViewById(R.id.floatbutton);
 
+        String key = generate_key();
+        long time = 30*1000;
+        Data data = guardarData("Titulo", "Soy un detalle", 4);
+        workerService.guardarNoti(time, data, key);
 
+
+    }
+
+
+    private Data guardarData(String titulo, String detalle, int idNoti){
+        return new Data.Builder()
+                .putString("titulo",titulo)
+                .putString("texto",detalle)
+                .putInt("idNoti",idNoti)
+                .build();
+    }
+
+    public String generate_key(){
+        return UUID.randomUUID().toString();
+    }
+    public void eliminarNoti(String tag){
+        WorkManager.getInstance(this).cancelAllWorkByTag(tag);
+        Toast.makeText(thisContext, "Alarma eliminada!", Toast.LENGTH_SHORT).show();
     }
 
     //menu inflado en el toolbar
