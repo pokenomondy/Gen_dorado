@@ -45,6 +45,7 @@
     <string name="Registromedicamento">Registro medicamento</string>
     <string name="Medicamento">Medicamento</string>
     <string name="nombredemedicamento">Medicamento</string>
+    <string name="med_ver">Ver medicamentos</string>
 
 
 </resources>

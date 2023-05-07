@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(MainActivity.this); // se inicializa
         dialog = new Dialog(MainActivity.this); //Inicializamos el dialog
 
-
-
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
