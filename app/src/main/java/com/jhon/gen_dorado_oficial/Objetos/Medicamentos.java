@@ -1,5 +1,12 @@
 package com.jhon.gen_dorado_oficial.Objetos;
 
+import android.content.Context;
+import android.widget.Toast;
+
+import androidx.work.Data;
+import androidx.work.WorkManager;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -9,6 +16,7 @@ public class Medicamentos {
     int dosis; //cuantas debe tomar
     Map<String, Integer> fechainicio; //cuando empezo
     String intervaloaplicacion;
+
 
     private  String id; //Variable de id del nodo, para poder entrar
     int num_tomado ; //numero pastilla tomado
@@ -64,6 +72,21 @@ public class Medicamentos {
         return hora;
     }
 
+
+    public String hora_tomada_String(){
+        Date fecha = obtenerFechaInicio();
+        Calendar hora_tomada = Calendar.getInstance();
+        hora_tomada.setTime(fecha);
+
+        hora_tomada.add(Calendar.HOUR, Integer.parseInt(this.intervaloaplicacion));
+        fecha = hora_tomada.getTime();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss");
+        String fechaString = formatter.format(fecha);
+
+        return fechaString;
+    }
+
     public int getDosis() {
         return dosis;
     }
@@ -86,6 +109,23 @@ public class Medicamentos {
         return fecha_inicio.getTime();
     }
 
+    public long obtenerMillis(){
+        Date inicio = obtenerFechaInicio();
+        int intervalo_medicamento = Integer.parseInt(this.intervaloaplicacion);
+
+        Calendar fecha_inicio = Calendar.getInstance();
+        fecha_inicio.setTime(inicio);
+
+        fecha_inicio.add(Calendar.HOUR, intervalo_medicamento);
+
+        Date fecha_inicio_add = fecha_inicio.getTime();
+        Date fecha_ahora = new Date();
+
+        //MILISEGUNDOS
+        long diferencia = fecha_inicio_add.getTime() - fecha_ahora.getTime();
+
+        return diferencia;
+    }
 
     public String getCalcsigmedicamento(){
 
@@ -120,6 +160,39 @@ public class Medicamentos {
         }
     }
 
+    public String getCalcTomado(){
+
+        Date inicio = obtenerFechaInicio();
+        int intervalo_medicamento = Integer.parseInt(this.intervaloaplicacion);
+
+        Calendar fecha_inicio = Calendar.getInstance();
+        fecha_inicio.setTime(inicio);
+
+        fecha_inicio.add(Calendar.HOUR, intervalo_medicamento);
+
+        Date fecha_inicio_add = fecha_inicio.getTime();
+        Date fecha_ahora = new Date();
+
+        //MILISEGUNDOS
+        long diferencia = fecha_inicio_add.getTime() - fecha_ahora.getTime();
+        long moduloHoras = 24;
+        int suma = 0;
+
+        if(intervalo_medicamento >= 24){
+            moduloHoras = intervalo_medicamento;
+        }
+
+        //HORAS
+        int diferencia_minutos = (int)(diferencia / (1000 * 60)) % 60;
+        int diferencia_horas = (int) (diferencia/(1000 * 60 * 60));
+
+        if (diferencia_horas < 0 || diferencia_minutos < 0){
+            return "Tomado " + (diferencia_horas * -1) + " horas y " + (diferencia_minutos * -1) + " minutos despues de la hora";
+        }else {
+            return "Tomado " + diferencia_horas + " horas y " + diferencia_minutos + " minutos antes de la hora";
+        }
+    }
+
     public Map<String, Integer> getFechainicio() {
         return fechainicio;
     }
@@ -151,4 +224,6 @@ public class Medicamentos {
     public void setNum_tomado(int num_tomado) {
         this.num_tomado = num_tomado;
     }
+
+
 }

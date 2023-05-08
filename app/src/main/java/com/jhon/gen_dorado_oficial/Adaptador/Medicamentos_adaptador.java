@@ -1,6 +1,7 @@
     package com.jhon.gen_dorado_oficial.Adaptador;
 
     import android.app.Dialog;
+    import android.content.Context;
     import android.util.Log;
     import android.view.LayoutInflater;
     import android.view.View;
@@ -14,6 +15,8 @@
     import androidx.annotation.NonNull;
     import androidx.recyclerview.widget.LinearLayoutManager;
     import androidx.recyclerview.widget.RecyclerView;
+    import androidx.work.Data;
+    import androidx.work.WorkManager;
 
     import com.google.firebase.auth.FirebaseAuth;
     import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +28,7 @@
     import com.jhon.gen_dorado_oficial.Objetos.Historialmedicamento;
     import com.jhon.gen_dorado_oficial.Objetos.Medicamentos;
     import com.jhon.gen_dorado_oficial.R;
+    import com.jhon.gen_dorado_oficial.servicios.workerService;
 
     import java.util.ArrayList;
     import java.util.Calendar;
@@ -36,9 +40,11 @@
     public class Medicamentos_adaptador extends RecyclerView.Adapter<Medicamentos_adaptador.MedicamentosViewHolder> {
 
         List<com.jhon.gen_dorado_oficial.Objetos.Medicamentos> medicamentos;
+        private Context thisContext;
 
-        public Medicamentos_adaptador(List<Medicamentos> medicamentos) {
+        public Medicamentos_adaptador(List<Medicamentos> medicamentos, Context context) {
             this.medicamentos = medicamentos;
+            this.thisContext = context;
         }
 
         @NonNull
@@ -49,6 +55,22 @@
             return holder;
         }
 
+
+        //FUNCIONES NOTIFICADOR
+        private Data guardarData(String titulo, String detalle, int idNoti){
+            return new Data.Builder()
+                    .putString("titulo",titulo)
+                    .putString("texto",detalle)
+                    .putInt("idNoti",idNoti)
+                    .build();
+        }
+
+        public void eliminarNoti(String tag){
+            WorkManager.getInstance(thisContext).cancelAllWorkByTag(tag);
+        }
+        // FIN FUNCIONES NOTIFICADOR
+
+
         @Override
         public void onBindViewHolder(@NonNull MedicamentosViewHolder holder, int position) {
             Medicamentos medicamento = medicamentos.get(position);
@@ -57,6 +79,15 @@
             holder.dosisintervalo.setText(medicamento.getIntervaloaplicacion()+"hr");
             holder.horaaplicacion.setText(medicamento.getHorario());
             holder.siguientemedicamento.setText(medicamento.getCalcsigmedicamento());
+
+            //NOTIFICADOR
+
+            long time = medicamento.obtenerMillis();
+            String key = medicamento.getMedicamento()+medicamento.getNum_tomado()+medicamento.getId();
+            Data data = guardarData( medicamento.getMedicamento() + " - " + medicamento.getHorario(), "Es hora de tomar tu medicamento", medicamento.getNum_tomado());
+            workerService.guardarNoti(time, data, key);
+
+            //FIN NOTIFICADOR
 
            //Variables par usar
             String medicamentoId = medicamento.getId();
@@ -237,6 +268,9 @@
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(),"sumar",Toast.LENGTH_SHORT).show();
+                    //Notificacion ACTUALIZAR
+                    eliminarNoti(medicamento.getMedicamento()+medicamento.getNum_tomado()+medicamento.getId());
+                    //FIN NOTIFICACION
                     FirebaseAuth firebaseAuth;
                     FirebaseDatabase firebaseDatabase;
                     DatabaseReference BASE_DE_DATOS,BASE_DE_DATOSDOS;
@@ -245,12 +279,20 @@
                     firebaseDatabase = FirebaseDatabase.getInstance();
                     BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
                     BASE_DE_DATOSDOS = firebaseDatabase.getReference().getRoot();
-                    String calcsiguiente = medicamento.getCalcsigmedicamento();
+                    String calcsiguiente = medicamento.getCalcTomado();
+                    String horaTomada = medicamento.hora_tomada_String();
 
 
                     BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).child("num_tomado").setValue(numnuevotomado);
+
+
+
                     //REGISTRAR NUEVO MEDICAMENTO TOMADO
-                    Historialmedicamento historialmedicamento = new Historialmedicamento(numnuevotomado,"2",calcsiguiente);
+                    Historialmedicamento historialmedicamento = new Historialmedicamento(numnuevotomado,horaTomada,calcsiguiente);
+
+
+
+
                     BASE_DE_DATOSDOS.child("Historial").child(firebaseAuth.getCurrentUser().getUid()).child("Historialmedicamento").child(medicamentoId).push().setValue(historialmedicamento);
 
                     if (numnuevotomado==dosisactual){
