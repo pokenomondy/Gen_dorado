@@ -30,8 +30,13 @@
             android:layout_marginLeft="20dp"/>
 
 
-
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_medicamentosacudiente"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"/>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
