@@ -4,8 +4,12 @@ import static com.jhon.gen_dorado_oficial.servicios.App.CHANNEL_ID;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -17,6 +21,8 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.jhon.gen_dorado_oficial.HomeActivity;
+import com.jhon.gen_dorado_oficial.Medicamentos;
 import com.jhon.gen_dorado_oficial.R;
 
 import java.util.concurrent.TimeUnit;
@@ -24,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 public class workerService extends Worker {
 
     private Context thisContext = getApplicationContext();
-
+    private PendingIntent pendingIntent;
 
     public workerService(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -58,7 +64,19 @@ public class workerService extends Worker {
 
     }
 
+    public void setPendingIntent(Class<?> clsActivity){
+        Intent intent = new Intent(thisContext, clsActivity);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(thisContext);
+        stackBuilder.addParentStack(clsActivity);
+        stackBuilder.addNextIntent(intent);
+        pendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
     private void mostrarNotification(String title, String descrip) {
+
+        setPendingIntent(Medicamentos.class);
+        Uri soundUri = Uri.parse("android.resource://"+getApplicationContext().getPackageName()+"/"+R.raw.alarm);
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "NEW", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager manager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -68,7 +86,10 @@ public class workerService extends Worker {
                     .setSmallIcon(R.drawable.ic_add)
                     .setContentTitle(title)
                     .setContentText(descrip)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(NotificationCompat.CATEGORY_ALARM)
+                    .setContentIntent(pendingIntent)
+                    .setSound(soundUri);
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
             if (ActivityCompat.checkSelfPermission(thisContext, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -87,7 +108,10 @@ public class workerService extends Worker {
                     .setSmallIcon(R.drawable.ic_add)
                     .setContentTitle(title)
                     .setContentText(descrip)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(NotificationCompat.CATEGORY_ALARM)
+                    .setContentIntent(pendingIntent)
+                    .setSound(soundUri);
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
             managerCompat.notify(1, builder.build());
         }

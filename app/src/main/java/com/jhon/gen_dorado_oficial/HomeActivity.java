@@ -92,30 +92,9 @@ public class HomeActivity extends AppCompatActivity{
 
         floatbutton = findViewById(R.id.floatbutton);
 
-        String key = generate_key();
-        long time = 30*1000;
-        Data data = guardarData("Titulo", "Soy un detalle", 4);
-        workerService.guardarNoti(time, data, key);
-
-
     }
 
 
-    private Data guardarData(String titulo, String detalle, int idNoti){
-        return new Data.Builder()
-                .putString("titulo",titulo)
-                .putString("texto",detalle)
-                .putInt("idNoti",idNoti)
-                .build();
-    }
-
-    public String generate_key(){
-        return UUID.randomUUID().toString();
-    }
-    public void eliminarNoti(String tag){
-        WorkManager.getInstance(this).cancelAllWorkByTag(tag);
-        Toast.makeText(thisContext, "Alarma eliminada!", Toast.LENGTH_SHORT).show();
-    }
 
     //menu inflado en el toolbar
     @Override
