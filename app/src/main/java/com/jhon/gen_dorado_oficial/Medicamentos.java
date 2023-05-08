@@ -77,7 +77,7 @@ public class Medicamentos extends AppCompatActivity {
         BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
         //adaptador
         recycler_medicamentos.setLayoutManager(new LinearLayoutManager(this));
-        medicamentos_adapter = new Medicamentos_adaptador(medicamentoList);
+        medicamentos_adapter = new Medicamentos_adaptador(medicamentoList, getApplicationContext());
         recycler_medicamentos.setAdapter(medicamentos_adapter);
         //floatbutto
         floatbutton = findViewById(R.id.floatbuttonmedicamento);
@@ -111,7 +111,6 @@ public class Medicamentos extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                mostrarNotification();
                 Dialog dialog = new Dialog(Medicamentos.this);
                 dialog.setContentView(R.layout.item_add_medicamento);
                 Button btnsendmedicamento;
@@ -155,43 +154,6 @@ public class Medicamentos extends AppCompatActivity {
             }
         });
     }
-
-    private void mostrarNotification() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "NEW", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            manager.createNotificationChannel(channel);
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
-                    CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_add)
-                    .setContentTitle("Notification")
-                    .setContentText("pruebanotificacion")
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            managerCompat.notify(1, builder.build());
-        } else {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
-                    CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_add)
-                    .setContentTitle("Notification")
-                    .setContentText("pruebanotificacion")
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
-            managerCompat.notify(1, builder.build());
-        }
-    }
-
-
 
 
 }
