@@ -27,11 +27,13 @@ import java.util.List;
 public class Familiares_adaptador extends RecyclerView.Adapter<Familiares_adaptador.FamiliaresViewHolder> {
 
     List<Familiares> familiaresList;
+
     private Context thisContext;
 
     public Familiares_adaptador(List<Familiares> familiaresList, Context  context) {
         this.familiaresList = familiaresList;
         this.thisContext = context;
+
     }
 
     @NonNull
@@ -55,7 +57,9 @@ public class Familiares_adaptador extends RecyclerView.Adapter<Familiares_adapta
         Medicamentos_adaptador medicamentosadaptador;
         medicamentosList = new ArrayList<>();
         holder.recycler_acudientemedicamentos.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
-        medicamentosadaptador = new Medicamentos_adaptador(medicamentosList, thisContext);
+
+        medicamentosadaptador = new Medicamentos_adaptador(medicamentosList,thiscontext);
+
         holder.recycler_acudientemedicamentos.setAdapter(medicamentosadaptador);
         //Base de datos para rellenar datos
         DatabaseReference BASE_DE_DATOS,BASE_DE_DATOSDOS;
