@@ -89,7 +89,8 @@ public class workerService extends Worker {
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setCategory(NotificationCompat.CATEGORY_ALARM)
                     .setContentIntent(pendingIntent)
-                    .setSound(soundUri);
+                    .setSound(soundUri)
+                    .setSmallIcon(R.drawable.smallicon);
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
             if (ActivityCompat.checkSelfPermission(thisContext, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -111,7 +112,8 @@ public class workerService extends Worker {
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setCategory(NotificationCompat.CATEGORY_ALARM)
                     .setContentIntent(pendingIntent)
-                    .setSound(soundUri);
+                    .setSound(soundUri)
+                    .setSmallIcon(R.drawable.smallicon);
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
             managerCompat.notify(1, builder.build());
         }

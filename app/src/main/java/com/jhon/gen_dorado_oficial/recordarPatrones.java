@@ -30,6 +30,7 @@ public class recordarPatrones extends AppCompatActivity {
 
     int puntuacion;
     int aciertos;
+    int maximoScore;
 
     //Imagenes
     int[] imagenes;
@@ -46,6 +47,7 @@ public class recordarPatrones extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recordar_patrones);
+        puntuacion = 0;
         init();
     }
 
@@ -107,7 +109,7 @@ public class recordarPatrones extends AppCompatActivity {
     }
 
     private void cargarPuntuacion(){
-        puntuacion = 0;
+        maximoScore = 0;
         aciertos = 0;
     }
 
