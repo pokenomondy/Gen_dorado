@@ -32,7 +32,6 @@
 
     import java.util.ArrayList;
     import java.util.Calendar;
-    import java.util.Date;
     import java.util.HashMap;
     import java.util.List;
     import java.util.Map;
@@ -80,6 +79,8 @@
             holder.horaaplicacion.setText(medicamento.getHorario());
             holder.siguientemedicamento.setText(medicamento.getCalcsigmedicamento());
 
+            String uidusuario = medicamento.getUiseruid();
+
             //NOTIFICADOR
 
             long time = medicamento.obtenerMillis();
@@ -114,7 +115,7 @@
             String nombremedimcaneto = medicamento.getMedicamento();
             String intervalo = medicamento.getIntervaloaplicacion();
 
-            //icon con historial
+            //icon con historial  - > hay que llamar familiares, y cuando sea un acudiente se llame lista desde uid familiar
             holder.icon_historial.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -133,11 +134,12 @@
                     FirebaseDatabase firebaseDatabase;
                     firebaseDatabase = FirebaseDatabase.getInstance();
                     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                    FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
                     BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
                     BASE_DE_DATOSDOS = firebaseDatabase.getReference().getRoot();
 
-
-                    BASE_DE_DATOSDOS.child("Historial").child(firebaseAuth.getCurrentUser().getUid()).child("Historialmedicamento").child(medicamentoId).addValueEventListener(new ValueEventListener() {
+                    //Separar entre acudiente y paciente
+                    BASE_DE_DATOS.child(uidusuario).child("Medicamentos").child(medicamentoId).child("Historialmedicamento").addValueEventListener(new ValueEventListener() {
 
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -162,29 +164,15 @@
                         }
                     });
 
+                    //fin separación
+
+
+
 
                     dialog.show();
 
 
                 }
-            });
-            //icon de delete
-            holder.icon_delete.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    //obtener posición
-                    DatabaseReference BASE_DE_DATOS;
-                    FirebaseDatabase firebaseDatabase;
-                    firebaseDatabase = FirebaseDatabase.getInstance();
-                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                    BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
-                    DatabaseReference medicamentoREF = BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId);
-                    medicamentoREF.removeValue();
-                    Toast.makeText(v.getContext(), medicamentoId, Toast.LENGTH_SHORT).show();
-
-                }
-
             });
             //icon de editar
             holder.icon_edit.setOnClickListener(new View.OnClickListener() {
@@ -236,7 +224,7 @@
                             //convertir a numero la dosis
                             String medicamentosid = medicamento.getId();
                             int dosisnum = Integer.parseInt(dosismedicamento.getText().toString());
-                            com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR, intervaloaplicacion.getText().toString(),medicamentosid,numtomado);
+                            com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR, intervaloaplicacion.getText().toString(),medicamentosid,numtomado,uidusuario);
                             BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentosid).setValue(medicamentos);
                             dialog.dismiss();
                         }
@@ -293,7 +281,7 @@
 
 
 
-                    BASE_DE_DATOSDOS.child("Historial").child(firebaseAuth.getCurrentUser().getUid()).child("Historialmedicamento").child(medicamentoId).push().setValue(historialmedicamento);
+                    BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).child("Historialmedicamento").push().setValue(historialmedicamento);
 
                     if (numnuevotomado==dosisactual){
 
@@ -322,7 +310,7 @@
 
         public static class MedicamentosViewHolder extends RecyclerView.ViewHolder{
             TextView dosisintervalo,medicamentonombre,horaaplicacion,siguientemedicamento;
-            ImageView icon_delete, icon_edit,icn_registrar,icon_historial;
+            ImageView icon_edit,icn_registrar,icon_historial;
             List<Historialmedicamento> historialmedicamentoList;
             Historial_adaptador historial_adaptador;
             public MedicamentosViewHolder(@NonNull View itemView) {
@@ -331,7 +319,6 @@
                 medicamentonombre = itemView.findViewById(R.id.medicamentonombre);
                 horaaplicacion = itemView.findViewById(R.id.horaaplicacion);
                 siguientemedicamento = itemView.findViewById(R.id.siguientemedicamento);
-                icon_delete = itemView.findViewById(R.id.icon_delete);
                 icon_edit = itemView.findViewById(R.id.icon_edit);
                 icn_registrar= itemView.findViewById(R.id.icn_registrar);
                 icon_historial = itemView.findViewById(R.id.icon_historial);
