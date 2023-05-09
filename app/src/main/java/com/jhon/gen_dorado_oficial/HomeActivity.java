@@ -237,7 +237,7 @@ public class HomeActivity extends AppCompatActivity{
 
         //Recycler de paciente
         recycler_familiares.setLayoutManager(new LinearLayoutManager(this));
-        familiares_adaptador = new Familiares_adaptador(familiaresList);
+        familiares_adaptador = new Familiares_adaptador(familiaresList, getApplicationContext());
         recycler_familiares.setAdapter(familiares_adaptador);
         //Reccycle view base de datos que funciona
         BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("familiar").addValueEventListener(new ValueEventListener() {
