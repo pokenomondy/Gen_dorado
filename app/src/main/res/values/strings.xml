@@ -49,6 +49,10 @@
     <string name="dosis">[D]</string>
     <string name="horatomada">[HORA TOMADA]</string>
     <string name="atrasadoono">[RETRASADO / NO]</string>
+    <string name="dosistext">Dosis</string>
+    <string name="Horatomada">Hora tomada:</string>
+    <string name="tiempotext">Tiempo:</string>
+    <string name="historialedicamento">Historial</string>
 
 
 </resources>

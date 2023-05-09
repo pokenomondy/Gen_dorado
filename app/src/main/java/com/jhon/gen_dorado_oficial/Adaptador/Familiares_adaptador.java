@@ -1,5 +1,6 @@
 package com.jhon.gen_dorado_oficial.Adaptador;
 
+import android.content.Context;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +27,12 @@ import java.util.List;
 public class Familiares_adaptador extends RecyclerView.Adapter<Familiares_adaptador.FamiliaresViewHolder> {
 
     List<Familiares> familiaresList;
+    private Context thiscontext;
 
-    public Familiares_adaptador(List<Familiares> familiaresList) {
+    public Familiares_adaptador(List<Familiares> familiaresList, Context context) {
         this.familiaresList = familiaresList;
+        this.thiscontext = context;
+
     }
 
     @NonNull
@@ -52,7 +56,7 @@ public class Familiares_adaptador extends RecyclerView.Adapter<Familiares_adapta
         Medicamentos_adaptador medicamentosadaptador;
         medicamentosList = new ArrayList<>();
         holder.recycler_acudientemedicamentos.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
-        medicamentosadaptador = new Medicamentos_adaptador(medicamentosList);
+        medicamentosadaptador = new Medicamentos_adaptador(medicamentosList,thiscontext);
         holder.recycler_acudientemedicamentos.setAdapter(medicamentosadaptador);
         //Base de datos para rellenar datos
         DatabaseReference BASE_DE_DATOS,BASE_DE_DATOSDOS;
