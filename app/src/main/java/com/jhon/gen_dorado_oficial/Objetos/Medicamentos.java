@@ -75,12 +75,7 @@ public class Medicamentos {
 
 
     public String hora_tomada_String(){
-        Date fecha = obtenerFechaInicio();
-        Calendar hora_tomada = Calendar.getInstance();
-        hora_tomada.setTime(fecha);
-
-        hora_tomada.add(Calendar.HOUR, Integer.parseInt(this.intervaloaplicacion));
-        fecha = hora_tomada.getTime();
+        Date fecha = new Date();
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss");
         String fechaString = formatter.format(fecha);
