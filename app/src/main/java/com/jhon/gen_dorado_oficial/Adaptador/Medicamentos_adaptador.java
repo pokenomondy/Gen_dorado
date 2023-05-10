@@ -272,6 +272,7 @@
 
 
                     BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).child("num_tomado").setValue(numnuevotomado);
+                    BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).child("fechainicio").setValue(fechaR);
 
 
 
