@@ -69,7 +69,7 @@ public class workerService extends Worker {
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(thisContext);
         stackBuilder.addParentStack(clsActivity);
         stackBuilder.addNextIntent(intent);
-        pendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_MUTABLE);
     }
 
     private void mostrarNotification(String title, String descrip) {
