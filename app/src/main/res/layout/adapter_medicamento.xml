@@ -1,117 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:orientation="vertical"
     android:gravity="center"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp">
 
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/rectangulo_medicamento"
-        android:layout_gravity="center">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:background="@drawable/circulo_medicamento"
-            android:layout_gravity="center"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/dosisintervalo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tiempo"
-                android:textColor="#0000FF"/>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="vertical">
-
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:background="@drawable/rectangulo_medicamento"
+            android:layout_gravity="center">
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:background="@drawable/circulo_medicamento"
+                android:layout_gravity="center"
+                android:gravity="center">
 
                 <TextView
-                    android:id="@+id/medicamentonombre"
+                    android:id="@+id/dosisintervalo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/MEDICAMENTO"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginLeft="5dp"/>
-
-                <TextView
-                    android:id="@+id/horaaplicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/horadetomar"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginLeft="10dp"/>
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/icon_delete"
-                    android:id="@+id/icon_delete"
-                    android:background="@color/white"/>
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_edit"
-                    android:id="@+id/icon_edit"
-                    android:background="@color/white"/>
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_edit"
-                    android:id="@+id/icn_registrar"
-                    android:background="@color/white"/>
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/icon_delete"
-                    android:id="@+id/icon_historial"
-                    android:background="@color/white"/>
-
+                    android:text="@string/tiempo"
+                    android:textColor="#0000FF"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/siguientemedicamento"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                >
+
+
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginLeft="5dp"
-                    android:text="@string/Siguiente_medicamento"/>
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/medicamentonombre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/MEDICAMENTO"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginLeft="5dp"/>
+
+                    <TextView
+                        android:id="@+id/horaaplicacion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/horadetomar"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginLeft="10dp"/>
+
+
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_edit"
+                        android:id="@+id/icon_edit"
+                        android:background="@color/white"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_edit"
+                        android:id="@+id/icn_registrar"
+                        android:background="@color/white"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/icon_delete"
+                        android:id="@+id/icon_historial"
+                        android:background="@color/white"/>
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/siguientemedicamento"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/Siguiente_medicamento"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 
 
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-</androidx.cardview.widget.CardView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

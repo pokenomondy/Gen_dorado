@@ -42,4 +42,5 @@ public class Historialmedicamento {
     public void setCalculotomado(String calculotomado) {
         this.calculotomado = calculotomado;
     }
+
 }
