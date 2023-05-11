@@ -24,13 +24,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/cedula_familiar"
-            android:id="@+id/cedulafamiliar"/>
+            android:id="@+id/cedulafamiliar"
+            style="@style/texview_morado_rendondo"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/apodofamiliar"
-            android:id="@+id/familiarapodo"/>
+            android:id="@+id/familiarapodo"
+            style="@style/texview_morado_rendondo"/>
 
 
         <!---BOTON PARA CERRAR DIALOG-->
@@ -39,7 +41,8 @@
             android:id="@+id/btnsendfamiliar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/enviar"/>
+            android:text="@string/enviar"
+            style="@style/boton_redondo_morado"/>
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

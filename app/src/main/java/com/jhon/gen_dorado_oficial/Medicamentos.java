@@ -3,6 +3,7 @@ package com.jhon.gen_dorado_oficial;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -58,6 +59,7 @@ public class Medicamentos extends AppCompatActivity {
     //adaptador
     Medicamentos_adaptador medicamentos_adapter;
     FloatingActionButton floatbutton;
+    Toolbar toolbara_medicamento;
     //notificaciones
     private static final String CHANNEL_ID = "canal";
 
@@ -81,6 +83,10 @@ public class Medicamentos extends AppCompatActivity {
         recycler_medicamentos.setAdapter(medicamentos_adapter);
         //floatbutto
         floatbutton = findViewById(R.id.floatbuttonmedicamento);
+        //modificar color y nombre del toolbar
+        toolbara_medicamento = findViewById(R.id.toolbar_home);
+        setSupportActionBar(toolbara_medicamento);
+        getSupportActionBar().setTitle("Medicamentos Registrados");
 
 
         //AHORA LLAMAMOS PARA ACTUALIZAR Y EMPEZAR A METER DATOS AL RECYLER
@@ -106,6 +112,7 @@ public class Medicamentos extends AppCompatActivity {
 
     }
 
+
     private void registromedicamento() {
         floatbutton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -116,6 +123,7 @@ public class Medicamentos extends AppCompatActivity {
                 Button btnsendmedicamento;
                 EditText nombremedicamento;
                 EditText dosismedicamento, intervaloaplicacion;
+
 
                 btnsendmedicamento = dialog.findViewById(R.id.btnsendmedicamento);
                 nombremedicamento = dialog.findViewById(R.id.nombremedicamento);

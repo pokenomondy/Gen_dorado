@@ -6,35 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".DashboardUser">
 
+    <include
+        android:id="@+id/toolbar_dashboard"
+        layout="@layout/toolbar_home"/>
+
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutCompat"
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayoutCompat4"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
-        android:layout_marginBottom="65dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginBottom="292dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/btnactinfo"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/imgperfilshow">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textnombre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Nombres"
-                tools:layout_editor_absoluteX="47dp"
-                tools:layout_editor_absoluteY="271dp" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textestiloadd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombres" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
 
             <TextView
                 android:id="@+id/shownombre"
+                style="@style/textestiloadddos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Nombres"
@@ -45,73 +59,127 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textapellido"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/apellidos"
-                tools:layout_editor_absoluteX="47dp"
-                tools:layout_editor_absoluteY="271dp" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textestiloadd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Apellidos" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
 
             <TextView
                 android:id="@+id/showapellido"
+                style="@style/textestiloadddos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Nombres"
                 tools:layout_editor_absoluteX="47dp"
                 tools:layout_editor_absoluteY="271dp" />
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textcedula"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cedula"
-                tools:layout_editor_absoluteX="47dp"
-                tools:layout_editor_absoluteY="271dp" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textestiloadd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cedula" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
 
             <TextView
                 android:id="@+id/showcedula"
+                style="@style/textestiloadddos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Nombres"
                 tools:layout_editor_absoluteX="47dp"
                 tools:layout_editor_absoluteY="271dp" />
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textrol"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rol"
-                tools:layout_editor_absoluteX="47dp"
-                tools:layout_editor_absoluteY="271dp" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textestiloadd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rol" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
 
             <TextView
                 android:id="@+id/showrol"
+                style="@style/textestiloadddos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Nombres"
                 tools:layout_editor_absoluteX="47dp"
                 tools:layout_editor_absoluteY="271dp" />
+
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <Button
+                android:id="@+id/btneliminarmedicamento"
+                style="@style/boton_redondo_rojo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Borrar"
+                android:visibility="gone" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -119,35 +187,35 @@
         android:id="@+id/imgperfilshow"
         android:layout_width="183dp"
         android:layout_height="177dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat"
+        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.709"
         app:srcCompat="@drawable/userprefault" />
 
     <Button
-        android:id="@+id/btnactinfo"
+        android:id="@+id/btneditarinfo"
+        style="@style/boton_redondo_morado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="@string/aceptar"
+        android:text="Editar info"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat"
-        app:layout_constraintVertical_bias="0.086" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat4"
+        app:layout_constraintVertical_bias="0.117" />
 
     <Button
         android:id="@+id/Cerrarsesion"
+        style="@style/boton_redondo_rojo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/cerrarsesion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

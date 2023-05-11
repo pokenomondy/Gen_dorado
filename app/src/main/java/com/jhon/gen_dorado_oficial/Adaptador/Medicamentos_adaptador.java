@@ -122,13 +122,21 @@
                     List<Historialmedicamento> historialmedicamentoList;
                     historialmedicamentoList = new ArrayList<>();
                     Dialog dialog = new Dialog(v.getContext());
+                    //Variables del dialog
                     dialog.setContentView(R.layout.item_historial_medicamento);
+                    TextView dosisintervalohistorial = dialog.findViewById(R.id.dosisintervalohistorial);
+                    TextView medicamentonombrehistorial = dialog.findViewById(R.id.medicamentonombrehistorial);
                     RecyclerView recycler_historial = dialog.findViewById(R.id.recycler_historial);
                     recycler_historial.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
                     Historial_adaptador historial_adaptador;
                     historial_adaptador = new Historial_adaptador(historialmedicamentoList);
                     recycler_historial.setAdapter(historial_adaptador);
                     Toast.makeText(v.getContext(),"Sirve",Toast.LENGTH_SHORT).show();
+
+                    dosisintervalohistorial.setText(medicamento.getIntervaloaplicacion());
+                    medicamentonombrehistorial.setText(medicamento.getMedicamento());
+
+
                     //inicializamos de nuevo bases de datos
                     DatabaseReference BASE_DE_DATOS,BASE_DE_DATOSDOS;
                     FirebaseDatabase firebaseDatabase;
@@ -198,6 +206,7 @@
                     dosismedicamento = dialog.findViewById(R.id.dosismedicamento);
                     intervaloaplicacion = dialog.findViewById(R.id.dosisintervalo);
                     btneliminarmedicamento = dialog.findViewById(R.id.btneliminarmedicamento);
+                    btneliminarmedicamento.setVisibility(View.VISIBLE);
 
                     //fecha y hora, toca arreglar porque no se obtiene bien el tiempo  java.util
                     Calendar fecha = Calendar.getInstance();
@@ -220,12 +229,35 @@
                     btnsendmedicamento.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            int numtomado = Integer.parseInt(String.valueOf(medicamento.getNum_tomado()));
-                            //convertir a numero la dosis
                             String medicamentosid = medicamento.getId();
-                            int dosisnum = Integer.parseInt(dosismedicamento.getText().toString());
-                            com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR, intervaloaplicacion.getText().toString(),medicamentosid,numtomado,uidusuario);
-                            BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentosid).setValue(medicamentos);
+                            String namemedicamento = nombremedicamento.getText().toString();
+                            //convertir a numero la dosis
+                            int dosisnum = 0;
+                            String interaplica = intervaloaplicacion.getText().toString();
+                            //ifs para conger los valores que se pueden editar
+                            if (namemedicamento.equals("")){
+                                namemedicamento = medicamento.getMedicamento();
+                            }
+                            if (dosismedicamento.getText().toString().equals("")){
+                                dosisnum = medicamento.getDosis();
+                            }else{
+                                dosisnum = Integer.parseInt(dosismedicamento.getText().toString());
+                            }
+                            if (intervaloaplicacion.getText().toString().equals("")){
+                                interaplica = medicamento.getIntervaloaplicacion();
+                            }
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put("dosis", dosisnum);
+                            updates.put("medicamento",namemedicamento);
+                            updates.put("intervaloaplicacion",interaplica);
+                            //poner dosis num
+                            BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).updateChildren(updates);
+
+
+
+
+
+
                             dialog.dismiss();
                         }
                     });
@@ -245,6 +277,7 @@
                             DatabaseReference medicamentoREF = BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId);
                             medicamentoREF.removeValue();
                             Toast.makeText(v.getContext(), medicamentoId, Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
                         }
                     });
 
@@ -259,40 +292,55 @@
                     //Notificacion ACTUALIZAR
                     eliminarNoti(medicamento.getMedicamento()+medicamento.getNum_tomado()+medicamento.getId());
                     //FIN NOTIFICACION
-                    FirebaseAuth firebaseAuth;
-                    FirebaseDatabase firebaseDatabase;
-                    DatabaseReference BASE_DE_DATOS,BASE_DE_DATOSDOS;
-                    //Firebase
-                    firebaseAuth = FirebaseAuth.getInstance();
-                    firebaseDatabase = FirebaseDatabase.getInstance();
-                    BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
-                    BASE_DE_DATOSDOS = firebaseDatabase.getReference().getRoot();
-                    String calcsiguiente = medicamento.getCalcTomado();
-                    String horaTomada = medicamento.hora_tomada_String();
 
 
-                    BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).child("num_tomado").setValue(numnuevotomado);
-                    BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).child("fechainicio").setValue(fechaR);
+                    Dialog dialogregistro = new Dialog(v.getContext());
+                    dialogregistro.setContentView(R.layout.item_add_registrotomado);
+                    Button btn_send_registro;
+                    btn_send_registro = dialogregistro.findViewById(R.id.btn_send_registro);
+                    btn_send_registro.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            FirebaseAuth firebaseAuth;
+                            FirebaseDatabase firebaseDatabase;
+                            DatabaseReference BASE_DE_DATOS,BASE_DE_DATOSDOS;
+                            //Firebase
+                            firebaseAuth = FirebaseAuth.getInstance();
+                            firebaseDatabase = FirebaseDatabase.getInstance();
+                            BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
+                            BASE_DE_DATOSDOS = firebaseDatabase.getReference().getRoot();
+                            String calcsiguiente = medicamento.getCalcTomado();
+                            String horaTomada = medicamento.hora_tomada_String();
+                            BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).child("num_tomado").setValue(numnuevotomado);
+                            BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).child("fechainicio").setValue(fechaR);
 
 
 
-                    //REGISTRAR NUEVO MEDICAMENTO TOMADO
-                    Historialmedicamento historialmedicamento = new Historialmedicamento(numnuevotomado,horaTomada,calcsiguiente);
+                            //REGISTRAR NUEVO MEDICAMENTO TOMADO
+                            Historialmedicamento historialmedicamento = new Historialmedicamento(numnuevotomado,horaTomada,calcsiguiente);
 
 
 
 
-                    BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).child("Historialmedicamento").push().setValue(historialmedicamento);
+                            BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).child("Historialmedicamento").push().setValue(historialmedicamento);
 
-                    if (numnuevotomado==dosisactual){
+                            if (numnuevotomado>dosisactual){
 
-                        firebaseDatabase = FirebaseDatabase.getInstance();
-                        String medicamentoId = medicamento.getId();
-                        BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
-                        DatabaseReference medicamentoREF = BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId);
-                        medicamentoREF.removeValue();
-                        Toast.makeText(v.getContext(), medicamentoId, Toast.LENGTH_SHORT).show();
-                    }
+                                firebaseDatabase = FirebaseDatabase.getInstance();
+                                String medicamentoId = medicamento.getId();
+                                BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
+                                DatabaseReference medicamentoREF = BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId);
+                                medicamentoREF.removeValue();
+                                Toast.makeText(v.getContext(), medicamentoId, Toast.LENGTH_SHORT).show();
+                            }
+                            dialogregistro.dismiss();
+
+                        }
+
+                    });
+                    dialogregistro.show();
+
+
 
 
                 }

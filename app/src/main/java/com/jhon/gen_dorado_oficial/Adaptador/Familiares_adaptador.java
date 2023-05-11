@@ -58,7 +58,7 @@ public class Familiares_adaptador extends RecyclerView.Adapter<Familiares_adapta
         medicamentosList = new ArrayList<>();
         holder.recycler_acudientemedicamentos.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
 
-        medicamentosadaptador = new Medicamentos_adaptador(medicamentosList,thisContext.getApplicationContext());
+        medicamentosadaptador = new Medicamentos_adaptador(medicamentosList, thisContext.getApplicationContext());
 
         holder.recycler_acudientemedicamentos.setAdapter(medicamentosadaptador);
         //Base de datos para rellenar datos

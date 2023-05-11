@@ -31,7 +31,7 @@ public class DashboardUser extends AppCompatActivity {
     //Inicialozamos variables de show
     TextView shownombre,showapellido,showrol,showcedula;
     ImageView imgperfil;
-    Button cerrarsesion;
+    Button cerrarsesion,btneditarinfo;
 
 
     @Override
@@ -54,6 +54,7 @@ public class DashboardUser extends AppCompatActivity {
         imgperfil = findViewById(R.id.imgperfilshow);
         showcedula = findViewById(R.id.showcedula);
         cerrarsesion = findViewById(R.id.Cerrarsesion);
+        btneditarinfo= findViewById(R.id.btneditarinfo);
 
         cerrarsesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,12 +62,18 @@ public class DashboardUser extends AppCompatActivity {
                 CerrarSesionnn();
             }
         });
-
+        btneditarinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardUser.this,EditarUsuarioRecurrente.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void updatenombretoolbar(){
         Query query = BASE_DE_DATOS.orderByChild("Numero de celular").equalTo(firebaseUser.getPhoneNumber());
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //iterar para buscar por numero de celular

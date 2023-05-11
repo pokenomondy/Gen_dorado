@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">gen_dorado_oficial</string>
+    <string name="app_name">Generación Dorada</string>
     <string name="ingrse_su_numero">Ingrese su numero:</string>
     <string name="numero_de_telefono">Numero de telefono</string>
     <string name="Enviar_SMS">Enviar SMS</string>
@@ -53,6 +53,7 @@
     <string name="Horatomada">Hora tomada:</string>
     <string name="tiempotext">Tiempo:</string>
     <string name="historialedicamento">Historial</string>
+    <string name="registroTomado">Registrar medicamento Tomado</string>
 
 
 </resources>
