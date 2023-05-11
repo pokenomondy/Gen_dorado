@@ -138,19 +138,16 @@ public class HomeActivity extends AppCompatActivity{
                     getSupportActionBar().setTitle("Hola "+nombre);
                         /*/Este if va a separar acudientes de usuaraios /*/
                         if (rol.equals("Paciente")){
-                            Toast.makeText(HomeActivity.this,"Paciente",Toast.LENGTH_SHORT).show();
                             vista_acudiente.setVisibility(View.GONE);
                             vista_paciente.setVisibility(View.VISIBLE);
                             esPaciente();
                         }else {
-                            Toast.makeText(HomeActivity.this, "Acudiente", Toast.LENGTH_SHORT).show();
                             vista_acudiente.setVisibility(View.VISIBLE);
                             vista_paciente.setVisibility(View.GONE);
                             esAcudiente();
                             cedulausuario = cedula;
                             uidusuario = uid;
-                            Toast.makeText(HomeActivity.this,cedulausuario,Toast.LENGTH_SHORT).show();
-                            Toast.makeText(HomeActivity.this,nombre,Toast.LENGTH_SHORT).show();
+
                         }
                 }
             }
@@ -222,7 +219,6 @@ public class HomeActivity extends AppCompatActivity{
                                     //OBTENER VALORES DE BASE DA DATOS
                                     String cedulaverificars = ""+ds.child("cedula").getValue();
                                     cedulaverificar = cedulaverificars;
-                                    Toast.makeText(HomeActivity.this,cedulaverificars,Toast.LENGTH_SHORT).show();
 
                                 }
 
@@ -249,7 +245,7 @@ public class HomeActivity extends AppCompatActivity{
 
                                     if(snapshot.exists()){
                                         if(cedula.equals(cedulaverificar)){
-                                            Toast.makeText(HomeActivity.this,"Ya ingresao",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(HomeActivity.this,"Esta cedula ya fue ingresada",Toast.LENGTH_SHORT).show();
 
                                         } else if (cedula.equals(cedulausuario)) {
                                             Toast.makeText(HomeActivity.this,"No ingreses tu mismca cedula",Toast.LENGTH_SHORT).show();

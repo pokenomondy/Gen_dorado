@@ -82,12 +82,20 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:967295874694:android:3c2e59d6ca2b498fb10307",
+        "mobilesdk_app_id": "1:967295874694:android:29b90aa76268070eb10307",
         "android_client_info": {
           "package_name": "com.jhon.gen_dorado_oficial"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "967295874694-66qq6ennq3tk4e9ri6cde6ifs8ls72bq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jhon.gen_dorado_oficial",
+            "certificate_hash": "b8621697a0ac4e664e78e943ef62b71e0e1132f5"
+          }
+        },
         {
           "client_id": "967295874694-o9ksav36sde529nn4k9mdgpok680p4aq.apps.googleusercontent.com",
           "client_type": 3

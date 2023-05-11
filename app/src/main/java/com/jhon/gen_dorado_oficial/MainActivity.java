@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
                 // by combining the code with a verification ID.
                 Log.d(TAG, "onCodeSent:" + verificationId);
                 // Save verification ID and resending token so we can use them later
-                Toast.makeText(MainActivity.this,"Numero correcto, procedemos a verificar",LENGTH_SHORT).show();
                 mVerificationId = verificationId;
                 mResendToken = token;
                 progressDialog.dismiss();
@@ -142,11 +141,9 @@ public class MainActivity extends AppCompatActivity {
     //UPDATE DE INTERFAZ GRAFICA, SI ES USUARIO RECURENTE O NO
     private void updateUi(){
         if (firebaseUser !=null){
-            Toast.makeText(MainActivity.this,"USUARIO RECURRENTE ",LENGTH_SHORT).show();;
             Intent recurrente = new Intent(MainActivity.this,HomeActivity.class);
             startActivity(recurrente);
         }else{
-            Toast.makeText(MainActivity.this,"USUARIO PRIMERA ENTREDA",LENGTH_SHORT).show();;
         }
     }
 
