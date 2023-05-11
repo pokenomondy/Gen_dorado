@@ -9,6 +9,7 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -83,14 +84,13 @@ public class workerService extends Worker {
             manager.createNotificationChannel(channel);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
                     CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_add)
+                    .setSmallIcon(R.drawable.smallicon)
                     .setContentTitle(title)
                     .setContentText(descrip)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
                     .setCategory(NotificationCompat.CATEGORY_ALARM)
-                    .setContentIntent(pendingIntent)
                     .setSound(soundUri)
-                    .setSmallIcon(R.drawable.smallicon);
+                    .setContentIntent(pendingIntent);
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
             if (ActivityCompat.checkSelfPermission(thisContext, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -106,17 +106,20 @@ public class workerService extends Worker {
         } else {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
                     CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_add)
+                    .setSmallIcon(R.drawable.smallicon)
                     .setContentTitle(title)
                     .setContentText(descrip)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
                     .setCategory(NotificationCompat.CATEGORY_ALARM)
-                    .setContentIntent(pendingIntent)
                     .setSound(soundUri)
-                    .setSmallIcon(R.drawable.smallicon);
+                    .setContentIntent(pendingIntent);
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
             managerCompat.notify(1, builder.build());
         }
+
+        MediaPlayer mediaPlayer = MediaPlayer.create(thisContext, soundUri);
+        mediaPlayer.start();
+
     }
 
 
