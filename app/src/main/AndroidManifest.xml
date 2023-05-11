@@ -8,12 +8,17 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:name="com.example.myapp.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+
+    <permission
+        android:name="com.example.myapp.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="com.example.myapp.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
         android:name=".servicios.App"
         android:allowBackup="true"
@@ -25,6 +30,9 @@
         android:theme="@style/Theme.Gen_dorado_oficial"
         tools:targetApi="31">
         <activity
+            android:name=".EditarUsuarioRecurrente"
+            android:exported="false" />
+        <activity
             android:name=".recordarPatrones"
             android:exported="false" />
         <activity
@@ -32,9 +40,10 @@
             android:exported="false" />
         <activity
             android:name=".Medicamentos"
-            android:exported="false" >
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </activity>
         <activity
@@ -63,9 +72,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
     </application>
 
 </manifest>

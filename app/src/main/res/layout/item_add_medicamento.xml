@@ -15,7 +15,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "@string/Registromedicamento"/>
+            android:text = "@string/Registromedicamento"
+            android:textColor="@color/morado"
+            android:textSize="20sp"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
@@ -28,10 +32,10 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="120dp"
+                    android:layout_width="130dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:layout_gravity="center"
+                    android:layout_gravity="left"
                     android:gravity="center">
 
                     <TextView
@@ -46,13 +50,14 @@
 
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/nombredemedicamento"
                     android:id="@+id/nombremedicamento"
                     style="@style/texview_morado_rendondo"
                     android:textAlignment="center"
-                    android:padding="20px"/>
+                    android:padding="20px"
+                    android:singleLine="true"/>
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -63,10 +68,10 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="120dp"
+                    android:layout_width="130dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:layout_gravity="center"
+                    android:layout_gravity="left"
                     android:gravity="center">
 
                     <TextView
@@ -80,14 +85,15 @@
 
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:hint="Tabletas a tomar"
                     android:id="@+id/dosismedicamento"
                     android:inputType="number"
                     style="@style/texview_morado_rendondo"
                     android:textAlignment="center"
-                    android:padding="20px"/>
+                    android:padding="20px"
+                    android:singleLine="true"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -97,7 +103,7 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="120dp"
+                    android:layout_width="130dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:gravity="center">
@@ -113,14 +119,15 @@
 
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:hint="Cada cuanto se toma?"
+                    android:hint="Cada cuanto?"
                     android:id="@+id/dosisintervalo"
                     android:inputType="number"
                     style="@style/texview_morado_rendondo"
                     android:textAlignment="center"
-                    android:padding="20px"/>
+                    android:padding="20px"
+                    android:singleLine="true"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -139,16 +146,18 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="120dp"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:gravity="center">
 
                     <Button
                         android:id="@+id/btnsendmedicamento"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Aceptar"
-                        style="@style/boton_redondo_morado" />
+                        style="@style/boton_redondo_morado"
+                        android:layout_marginLeft="40dp"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -156,8 +165,11 @@
                 <Button
                     android:id="@+id/btneliminarmedicamento"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Borrar"/>
+                    android:layout_height="40dp"
+                    android:text="Borrar"
+                    style="@style/boton_redondo_rojo"
+                    android:layout_marginLeft="30dp"
+                    android:visibility="gone"/>
 
 
 
