@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         //Crear dialogo de inicio
         progressDialog = new ProgressDialog(MainActivity.this); // se inicializa
         dialog = new Dialog(MainActivity.this); //Inicializamos el dialog
+
+        //Desactivamos modo noche en los celualres
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 

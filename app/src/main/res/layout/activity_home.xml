@@ -10,6 +10,8 @@
         android:id="@+id/toolbar_home"
         layout="@layout/toolbar_home"/>
 
+    <!--FAB , BOTON VOLADOR-->
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +21,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_home"
-        app:layout_constraintVertical_bias="0.038">
+        app:layout_constraintVertical_bias="0.109">
 
 
         <!--ACUDIENTES-->
@@ -33,15 +35,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/bienvenidoacudiente"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:text="@string/bienvenidoacudiente" />
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_familiares"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -63,9 +65,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bienvenido"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/bienbenida_medicamentos"
+                    android:textSize="15sp" />
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -74,54 +76,53 @@
                 android:id="@+id/noboton_medicamentos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="left"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="15dp"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
-                android:background="@drawable/medicamentos_dash">
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/medicamentos_dash"
+                android:gravity="left"
+                android:orientation="vertical">
 
                 <TextView
+                    style="@style/dashboard_user_grande"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Mednicamentos"
-                    style="@style/dashboard_user_grande"/>
+                    android:text="@string/Mednicamentos" />
 
                 <TextView
+                    style="@style/dashboard_user_pequeño"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Agregarmedicamento"
-                    style="@style/dashboard_user_pequeño"/>
+                    android:text="@string/Agregarmedicamento" />
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/nobotonminijuegos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="left"
-                android:layout_marginBottom="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/juego_dash"
 
 
-
-                android:id="@+id/nobotonminijuegos"
-                android:background="@drawable/juego_dash">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/juegos"
-                    style="@style/dashboard_user_grande"/>
+                android:gravity="left"
+                android:orientation="vertical">
 
                 <TextView
+                    style="@style/dashboard_user_grande"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Entrena_tu_mente"
-                    style="@style/dashboard_user_pequeño"/>
+                    android:text="@string/juegos" />
+
+                <TextView
+                    style="@style/dashboard_user_pequeño"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Entrena_tu_mente" />
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -131,7 +132,6 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <!--FAB , BOTON VOLADOR-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
