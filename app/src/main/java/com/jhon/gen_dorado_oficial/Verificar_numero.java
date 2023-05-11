@@ -53,7 +53,6 @@ public class Verificar_numero extends AppCompatActivity {
     private static final String TAG = "PhoneAuthActivity";
     String mVerificationId;
     FirebaseUser firebaseUser;
-    TextView prueba1,prueba2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,11 +182,9 @@ public class Verificar_numero extends AppCompatActivity {
         //Variables de bases de datos
 
         mAuth = FirebaseAuth.getInstance();
-        prueba1 = findViewById(R.id.prueba1);
-        prueba2 = findViewById(R.id.prueba2);
+
 
         mVerificationId = getIntent().getStringExtra(MainActivity.verificacionId);
-        prueba2.setText(mVerificationId);
 
 
     }
@@ -200,8 +197,7 @@ public class Verificar_numero extends AppCompatActivity {
                 editCodigoVer5.getText().toString() +
                 editCodigoVer6.getText().toString();
         String code = editCodigoVerificacion;
-        prueba1.setText(code);
-        prueba2.setText(mVerificationId);
+
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
         signInWithPhoneAuthCredential(credential);
     }
@@ -216,7 +212,7 @@ public class Verificar_numero extends AppCompatActivity {
                             FirebaseUser user = task.getResult().getUser();
                             boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
 
-                            Toast.makeText(Verificar_numero.this,"Codigo bueno",LENGTH_SHORT).show();
+                            Toast.makeText(Verificar_numero.this,"Verificado correctamente",LENGTH_SHORT).show();
 
 
                             if(isNewUser){

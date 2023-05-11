@@ -34,7 +34,6 @@ public class Minijuegos extends AppCompatActivity {
         btnMinJuego2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Minijuegos.this,"Boton sirviedo", Toast.LENGTH_SHORT).show();
             }
         });
 
