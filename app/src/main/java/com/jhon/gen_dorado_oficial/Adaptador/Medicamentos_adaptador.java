@@ -276,7 +276,6 @@
                             BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
                             DatabaseReference medicamentoREF = BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId);
                             medicamentoREF.removeValue();
-                            Toast.makeText(v.getContext(), medicamentoId, Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }
                     });
@@ -288,7 +287,6 @@
             holder.icn_registrar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),"sumar",Toast.LENGTH_SHORT).show();
                     //Notificacion ACTUALIZAR
                     eliminarNoti(medicamento.getMedicamento()+medicamento.getNum_tomado()+medicamento.getId());
                     //FIN NOTIFICACION
@@ -331,7 +329,6 @@
                                 BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
                                 DatabaseReference medicamentoREF = BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId);
                                 medicamentoREF.removeValue();
-                                Toast.makeText(v.getContext(), medicamentoId, Toast.LENGTH_SHORT).show();
                             }
                             dialogregistro.dismiss();
 

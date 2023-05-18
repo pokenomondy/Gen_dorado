@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -11,8 +12,10 @@ android {
         applicationId "com.jhon.gen_dorado_oficial"
         minSdk 24
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "1.03"
+        multiDexEnabled = true
+
 
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -57,6 +60,11 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.firebase:firebase-firestore:24.1.1'
     implementation 'com.firebaseui:firebase-ui-firestore:7.2.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.browser:browser:1.5.0'
+    implementation 'com.google.firebase:firebase-analytics:17.6.0'
+
+
 
 
 }
