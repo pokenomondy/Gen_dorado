@@ -17,6 +17,8 @@ import android.app.NotificationManager;
 import android.app.TimePickerDialog;
 import android.content.pm.PackageManager;
 import android.database.DataSetObserver;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.lights.LightState;
 import android.os.Build;
 import android.os.Bundle;
@@ -124,9 +126,12 @@ public class Medicamentos extends AppCompatActivity {
             public void onClick(View v) {
                 Dialog dialog = new Dialog(Medicamentos.this);
                 dialog.setContentView(R.layout.item_add_medicamento);
-                Button btnsendmedicamento;
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().setWindowAnimations(R.style.DialogAnimationFromTop);
+
+                Button btnsendmedicamento,intervaloaplicacion;
                 EditText nombremedicamento;
-                EditText dosismedicamento, intervaloaplicacion;
+                EditText dosismedicamento;
 
 
                 btnsendmedicamento = dialog.findViewById(R.id.btnsendmedicamento);
