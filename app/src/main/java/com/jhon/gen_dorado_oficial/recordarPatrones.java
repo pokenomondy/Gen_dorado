@@ -2,11 +2,14 @@ package com.jhon.gen_dorado_oficial;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,12 +24,21 @@ import java.util.logging.LogRecord;
 
 public class recordarPatrones extends AppCompatActivity {
 
+
+    //Cronometro
+    TextView temporizador;
+    CountDownTimer countDownTimer;
+    int gameTime;
+    Dialog dialog;
+
     // Variables definidas
     ImageButton imb00, imb01, imb02, imb03, imb04, imb05, imb06, imb07, imb08, imb09, imb10, imb11, imb12, imb13, imb14, imb15;
     ImageButton[] tablero = new ImageButton[16];
 
-    Button btn_reiniciar, btn_salir;
-    TextView puntajeText;
+    ImageView lgro00, lgro01, lgro02, lgro03, lgro04;
+
+    Button btn_reiniciar, btn_salir, logros, salirDialog;
+    TextView puntajeText, puntajeMaximo;
 
     int puntuacion;
     int aciertos;
@@ -40,15 +52,18 @@ public class recordarPatrones extends AppCompatActivity {
     ArrayList<Integer> arrayDesordenada;
     ImageButton primero;
     int numeroPrimero, numeroSegundo;
-    boolean bloqueo = false;
+    boolean bloqueo = false, firtsTime;
     final android.os.Handler handler = new Handler();
+    int normalTime = 60;
+    int addTime = 30;
+    int nivel = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recordar_patrones);
-        puntuacion = 0;
-        init();
+        cargar();
+        iniciar_Temporizador(normalTime);
     }
 
     private void cargarTablero(){
@@ -91,11 +106,14 @@ public class recordarPatrones extends AppCompatActivity {
     private void cargarBotones(){
         btn_reiniciar = findViewById(R.id.btnreiniciar);
         btn_salir = findViewById(R.id.btnsalir);
+        logros = findViewById(R.id.logrosButtom);
+        salirDialog = dialog.findViewById(R.id.salir_logros);
 
         btn_reiniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                init();
+                puntuacion = 0;
+                iniciar_Temporizador(normalTime);
             }
         });
 
@@ -106,14 +124,105 @@ public class recordarPatrones extends AppCompatActivity {
             }
         });
 
+
+        logros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.show();
+            }
+        });
+
+        salirDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+
+    }
+
+
+    private void iniciar_Temporizador(int Time){
+        detenerTemporizador();
+        gameTime = Time;
+        countDownTimer = new CountDownTimer(Time * 1000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                if (firtsTime){
+                    nivel=0;
+                    firtsTime = false;
+                    init();
+                }
+
+                gameTime--;
+
+                temporizador.setText(String.valueOf(gameTime));
+
+
+            }
+
+            public void onFinish() {
+
+                puntuacion = 0;
+                firtsTime = true;
+
+                temporizador.setText("Tiempo terminado!");
+
+                if (puntuacion > maximoScore){
+                    Toast.makeText(recordarPatrones.this, "Enhorabuena, haz alcanzado un nuevo record!", Toast.LENGTH_SHORT).show();
+                    
+                    
+                    maximoScore = puntuacion;
+                    //Guardar maximoScore en Firebase
+                    
+                    
+                    //Guardar
+                    
+                    puntajeMaximo.setText("Puntaje maximo: " + maximoScore);
+                }
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                    //Espera de 2 segundos
+                    }
+                }, 2000);
+
+                Toast.makeText(recordarPatrones.this, "Iniciando nuevo juego!", Toast.LENGTH_SHORT).show();
+
+                init();
+
+            }
+        }.start();
+    }
+
+    public void detenerTemporizador(){
+        if (countDownTimer!=null){
+            countDownTimer.cancel();
+            firtsTime = true;
+        }
     }
 
     private void cargarPuntuacion(){
-        maximoScore = 0;
+        //Obtener maximo Score desde Firebase
+        maximoScore = 0; //Incluir el maximo score en la variable
         aciertos = 0;
     }
 
     private void cargarImagenes(){
+        lgro00 = dialog.findViewById(R.id.logro00);
+        lgro01 = dialog.findViewById(R.id.logro01);
+        lgro02 = dialog.findViewById(R.id.logro02);
+        lgro03 = dialog.findViewById(R.id.logro03);
+        lgro04 = dialog.findViewById(R.id.logro04);
+
+        lgro00.setImageResource(R.drawable.logro00);
+        lgro01.setImageResource(R.drawable.logro01);
+        lgro02.setImageResource(R.drawable.logro02);
+        lgro03.setImageResource(R.drawable.logro03);
+        lgro04.setImageResource(R.drawable.logro04);
+
+
         imagenes = new int[]{
                 R.drawable.imgre00,
                 R.drawable.imgre01,
@@ -141,6 +250,9 @@ public class recordarPatrones extends AppCompatActivity {
 
     private void cargarTexViews(){
         puntajeText = findViewById(R.id.puntuacionJuego);
+        puntajeMaximo = findViewById(R.id.puntuacionmaxima);
+        temporizador = findViewById(R.id.Temporizador);
+        puntajeMaximo.setText("Puntuacion maxima: " + maximoScore);
     }
 
 
@@ -164,12 +276,20 @@ public class recordarPatrones extends AppCompatActivity {
                 puntuacion++;
                 puntajeText.setText("Puntuacion: " + puntuacion);
                 if(aciertos == imagenes.length){
-                    Toast.makeText(this, "Haz acertado todas las imagenes correctamente!", Toast.LENGTH_SHORT).show();
+
+                    aciertos = 0;
+
+                    Toast.makeText(this, "+"+String.valueOf(addTime)+"segs", Toast.LENGTH_SHORT).show();
+                    iniciar_Temporizador(gameTime+addTime);
+
+                    if (nivel<4){
+                        addTime-=5;
+                    }
+
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(recordarPatrones.this, "Iniciando nueva ronda!", Toast.LENGTH_SHORT).show();
-                            init();
                         }
                     },1500);
                 }
@@ -194,12 +314,24 @@ public class recordarPatrones extends AppCompatActivity {
         }
     }
 
-    private void init(){
+    private void cargar(){
         cargarTablero();
+        cargarDialog();
         cargarBotones();
         cargarTexViews();
-        cargarPuntuacion();
         cargarImagenes();
+        cargarPuntuacion();
+        firtsTime = true;
+    }
+
+    private void cargarDialog(){
+        dialog = new Dialog(recordarPatrones.this);
+        dialog.setContentView(R.layout.dialog_logros_paciente);
+    }
+
+    private void init(){
+        puntajeText.setText("Puntuacion: "+puntuacion);
+
         arrayDesordenada = barajar(imagenes.length);
 
         for(int i=0; i<tablero.length ; i++){
