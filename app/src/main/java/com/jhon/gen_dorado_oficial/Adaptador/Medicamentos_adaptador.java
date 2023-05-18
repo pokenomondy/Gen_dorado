@@ -1,7 +1,10 @@
     package com.jhon.gen_dorado_oficial.Adaptador;
 
     import android.app.Dialog;
+    import android.app.TimePickerDialog;
     import android.content.Context;
+    import android.graphics.Color;
+    import android.graphics.drawable.ColorDrawable;
     import android.util.Log;
     import android.view.LayoutInflater;
     import android.view.View;
@@ -10,6 +13,7 @@
     import android.widget.EditText;
     import android.widget.ImageView;
     import android.widget.TextView;
+    import android.widget.TimePicker;
     import android.widget.Toast;
 
     import androidx.annotation.NonNull;
@@ -34,6 +38,7 @@
     import java.util.Calendar;
     import java.util.HashMap;
     import java.util.List;
+    import java.util.Locale;
     import java.util.Map;
 
     public class Medicamentos_adaptador extends RecyclerView.Adapter<Medicamentos_adaptador.MedicamentosViewHolder> {
@@ -122,6 +127,8 @@
                     List<Historialmedicamento> historialmedicamentoList;
                     historialmedicamentoList = new ArrayList<>();
                     Dialog dialog = new Dialog(v.getContext());
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
                     //Variables del dialog
                     dialog.setContentView(R.layout.item_historial_medicamento);
                     TextView dosisintervalohistorial = dialog.findViewById(R.id.dosisintervalohistorial);
@@ -197,9 +204,10 @@
                     BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
                     Dialog dialog = new Dialog(v.getContext());
                     dialog.setContentView(R.layout.item_add_medicamento);
-                    Button btnsendmedicamento,btneliminarmedicamento;
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    Button btnsendmedicamento,btneliminarmedicamento,intervaloaplicacion;
                     EditText nombremedicamento;
-                    EditText dosismedicamento, intervaloaplicacion;
+                    EditText dosismedicamento;
 
                     btnsendmedicamento = dialog.findViewById(R.id.btnsendmedicamento);
                     nombremedicamento = dialog.findViewById(R.id.nombremedicamento);
@@ -225,6 +233,29 @@
                     fechaR.put("minuto", minuto);
                     fechaR.put("segundo", segundo);
 
+                    //hora y minutos
+                    final int[] horaaplicado = new int[1];
+                    final int[] minutoaplicado = new int[1];
+
+                    intervaloaplicacion.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                                @Override
+                                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                    horaaplicado[0] = hourOfDay;
+                                    minutoaplicado[0] = minute;
+                                    intervaloaplicacion.setText(String.format(Locale.getDefault(),"%02d:%02d", horaaplicado[0], minutoaplicado[0]));
+                                }
+                            };
+
+                            TimePickerDialog timePickerDialog = new TimePickerDialog(v.getContext(), onTimeSetListener, horaaplicado[0], minutoaplicado[0],true);
+                            timePickerDialog.setTitle("Seleccione la hora");
+                            timePickerDialog.show();
+                        }
+                    });
+
+
                     //btn actualizar datos
                     btnsendmedicamento.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -247,6 +278,9 @@
                             updates.put("dosis", dosisnum);
                             updates.put("medicamento",namemedicamento);
                             updates.put("intervaloaplicacion",interaplica);
+                            updates.put("hora",horaaplicado[0]);
+                            updates.put("minuto",minutoaplicado[0]);
+
                             //poner dosis num
                             BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).updateChildren(updates);
 
@@ -288,11 +322,12 @@
                     eliminarNoti(medicamento.getMedicamento()+medicamento.getNum_tomado()+medicamento.getId());
                     //FIN NOTIFICACION
 
-
                     Dialog dialogregistro = new Dialog(v.getContext());
+                    dialogregistro.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     dialogregistro.setContentView(R.layout.item_add_registrotomado);
                     Button btn_send_registro;
                     btn_send_registro = dialogregistro.findViewById(R.id.btn_send_registro);
+
                     btn_send_registro.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -313,7 +348,7 @@
 
                             //REGISTRAR NUEVO MEDICAMENTO TOMADO
                             Historialmedicamento historialmedicamento = new Historialmedicamento(numnuevotomado,horaTomada,calcsiguiente);
-
+                            Toast.makeText(v.getContext(),"Dosis registrada correctamente",Toast.LENGTH_SHORT).show();
 
 
 

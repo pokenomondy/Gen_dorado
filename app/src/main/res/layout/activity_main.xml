@@ -84,7 +84,7 @@
                 android:layout_width="188dp"
                 android:layout_height="31dp"
                 android:onClick="accion_numerodetelefono"
-                android:text="@string/Enviar_SMS" />
+                android:text="@string/Enviar_SMS"/>
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -138,14 +138,12 @@ public class Verificar_numero extends AppCompatActivity {
 
                             Toast.makeText(Verificar_numero.this,"Verificado correctamente",LENGTH_SHORT).show();
 
-
                             if(isNewUser){
                                 Intent nuevouser = new Intent(Verificar_numero.this,RegistroNuevoUsuario.class);
                                 startActivity(nuevouser);
                             }else{
                                 Intent usuariorecurrente = new Intent(Verificar_numero.this,HomeActivity.class);
                                 startActivity(usuariorecurrente);
-
                             }
 
 

@@ -71,4 +71,9 @@
         <item name="android:layout_marginTop">5dp</item>
     </style>
 
+    <style name="DialogAnimationFromTop">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_top</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_to_top</item>
+    </style>
+
 </resources>
