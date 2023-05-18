@@ -23,7 +23,6 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
 
     Button btnbtnactinfo;
     EditText editnombre,editapellido,editcedula;
-    String editrol;
     FirebaseAuth firebaseAuth;
     Spinner spinnerrol;
 
@@ -37,7 +36,6 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
         editnombre = findViewById(R.id.editnombre);
         editapellido = findViewById(R.id.editapellido);
         editcedula = findViewById(R.id.editcedula);
-        editrol = "";
 
         //inicio de base de datos
         firebaseAuth = FirebaseAuth.getInstance();
@@ -74,7 +72,6 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
                     String uid = user.getUid();
                     String name = editnombre.getText().toString();
                     String num_cedula = editcedula.getText().toString();
-                    String rol = editrol;
                     String apellido = editapellido.getText().toString();
 
                     HashMap<Object,String> DatosUsuario = new HashMap<>();

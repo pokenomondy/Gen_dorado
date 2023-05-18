@@ -29,7 +29,6 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button sendbtnnumerodetelefono;
     EditText editNumero;
 
     private PhoneAuthProvider.ForceResendingToken mResendToken;
@@ -42,14 +41,13 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
-    Dialog dialog ;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sendbtnnumerodetelefono = (Button) findViewById(R.id.btn_send_numerotelefono);
         editNumero = findViewById(R.id.editNumero);
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
@@ -104,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
                 progressDialog.dismiss();
 
 
-                Intent intent = new Intent(MainActivity.this,Verificar_numero.class);
-                intent.putExtra(verificacionId,mVerificationId);
+                Intent intent = new Intent(MainActivity.this, Verificar_numero.class);
+                intent.putExtra(verificacionId, mVerificationId);
                 startActivity(intent);
             }
         };
@@ -113,18 +111,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUi();
     }
 
     //BOTON PARA EMPEZAR A VERIFICAR NUMERO Y ENVIAR SMS
-    public void accion_numerodetelefono(View view){
+    public void accion_numerodetelefono(View view) {
         String phoneNumber = editNumero.getText().toString();
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber("+57"+phoneNumber)       // Phone number to verify
+                        .setPhoneNumber("+57" + phoneNumber)       // Phone number to verify
                         .setTimeout(120L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(this)                 // Activity (for callback binding)
                         .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
@@ -133,23 +131,20 @@ public class MainActivity extends AppCompatActivity {
         mAuth.setLanguageCode("es");
         progressDialog.setCancelable(false);
         progressDialog.show();
-
-
     }
 
 
     //UPDATE DE INTERFAZ GRAFICA, SI ES USUARIO RECURENTE O NO
-    private void updateUi(){
-        if (firebaseUser !=null){
-            Intent recurrente = new Intent(MainActivity.this,HomeActivity.class);
+    private void updateUi() {
+        if (firebaseUser != null) {
+            Intent recurrente = new Intent(MainActivity.this, HomeActivity.class);
             startActivity(recurrente);
-        }else{
         }
     }
 
     //DIALOG CUANDO NO SE PERMITA INICIAR SESIÓN
 
-    private void Dialog_no_inicio(){
+    private void Dialog_no_inicio() {
 
         Button oknoinicio;
         dialog.setContentView(R.layout.nosesion); //Conxión con vista creada
