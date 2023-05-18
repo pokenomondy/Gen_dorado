@@ -13,9 +13,8 @@ import java.util.Map;
 
 public class Medicamentos {
     String medicamento; //nombre medicamento
-    int dosis; //cuantas debe tomar
+    int dosis, hora, minuto; //cuantas debe tomar
     Map<String, Integer> fechainicio; //cuando empezo
-    String intervaloaplicacion;
 
     private  String id; //Variable de id del nodo, para poder entrar
     int num_tomado ; //numero pastilla tomado
@@ -25,14 +24,31 @@ public class Medicamentos {
     public Medicamentos() {
     }
 
-    public Medicamentos(String medicamento, int dosis, Map<String, Integer> fechainicio, String intervaloaplicacion, String id, int num_tomado, String uiseruid) {
+    public Medicamentos(String medicamento, int dosis, Map<String, Integer> fechainicio, String id, int num_tomado, String uiseruid, int hora, int minuto) {
         this.medicamento = medicamento;
         this.dosis = dosis;
         this.fechainicio = fechainicio;
-        this.intervaloaplicacion = intervaloaplicacion;
+        this.hora = hora;
+        this.minuto = minuto;
         this.id = id;
         this.num_tomado = num_tomado;
         this.uiseruid = uiseruid;
+    }
+
+    public int getHora() {
+        return hora;
+    }
+
+    public void setHora(int hora) {
+        this.hora = hora;
+    }
+
+    public int getMinuto() {
+        return minuto;
+    }
+
+    public void setMinuto(int minuto) {
+        this.minuto = minuto;
     }
 
     public String getMedicamento() {
@@ -47,7 +63,8 @@ public class Medicamentos {
         Date fecha = obtenerFechaInicio();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fecha);
-        calendar.add(Calendar.HOUR, Integer.parseInt(this.intervaloaplicacion));
+        calendar.add(Calendar.HOUR, hora);
+        calendar.add(Calendar.MINUTE, minuto);
         int hora_int = calendar.get(Calendar.HOUR_OF_DAY);
         int min_int = calendar.get(Calendar.MINUTE);
         String hora = "";
@@ -107,12 +124,12 @@ public class Medicamentos {
 
     public long obtenerMillis(){
         Date inicio = obtenerFechaInicio();
-        int intervalo_medicamento = Integer.parseInt(this.intervaloaplicacion);
 
         Calendar fecha_inicio = Calendar.getInstance();
         fecha_inicio.setTime(inicio);
 
-        fecha_inicio.add(Calendar.HOUR, intervalo_medicamento);
+        fecha_inicio.add(Calendar.HOUR, hora);
+        fecha_inicio.add(Calendar.MINUTE, minuto);
 
         Date fecha_inicio_add = fecha_inicio.getTime();
         Date fecha_ahora = new Date();
@@ -126,24 +143,19 @@ public class Medicamentos {
     public String getCalcsigmedicamento(){
 
         Date inicio = obtenerFechaInicio();
-        int intervalo_medicamento = Integer.parseInt(this.intervaloaplicacion);
 
         Calendar fecha_inicio = Calendar.getInstance();
         fecha_inicio.setTime(inicio);
 
-        fecha_inicio.add(Calendar.HOUR, intervalo_medicamento);
+        fecha_inicio.add(Calendar.HOUR, hora);
+        fecha_inicio.add(Calendar.MINUTE, minuto);
 
         Date fecha_inicio_add = fecha_inicio.getTime();
         Date fecha_ahora = new Date();
 
        //MILISEGUNDOS
         long diferencia = fecha_inicio_add.getTime() - fecha_ahora.getTime();
-        long moduloHoras = 24;
-        int suma = 0;
 
-        if(intervalo_medicamento >= 24){
-            moduloHoras = intervalo_medicamento;
-        }
 
         //HORAS
         int diferencia_minutos = (int)(diferencia / (1000 * 60)) % 60;
@@ -159,24 +171,18 @@ public class Medicamentos {
     public String getCalcTomado(){
 
         Date inicio = obtenerFechaInicio();
-        int intervalo_medicamento = Integer.parseInt(this.intervaloaplicacion);
 
         Calendar fecha_inicio = Calendar.getInstance();
         fecha_inicio.setTime(inicio);
 
-        fecha_inicio.add(Calendar.HOUR, intervalo_medicamento);
+        fecha_inicio.add(Calendar.HOUR, hora);
+        fecha_inicio.add(Calendar.MINUTE, minuto);
 
         Date fecha_inicio_add = fecha_inicio.getTime();
         Date fecha_ahora = new Date();
 
         //MILISEGUNDOS
         long diferencia = fecha_inicio_add.getTime() - fecha_ahora.getTime();
-        long moduloHoras = 24;
-        int suma = 0;
-
-        if(intervalo_medicamento >= 24){
-            moduloHoras = intervalo_medicamento;
-        }
 
         //HORAS
         int diferencia_minutos = (int)(diferencia / (1000 * 60)) % 60;
@@ -197,13 +203,6 @@ public class Medicamentos {
         this.fechainicio = fechainicio;
     }
 
-    public String getIntervaloaplicacion() {
-        return intervaloaplicacion;
-    }
-
-    public void setIntervaloaplicacion(String intervaloaplicacion) {
-        this.intervaloaplicacion = intervaloaplicacion;
-    }
 
     public String getId() {
         return id;

@@ -2,6 +2,7 @@ package com.jhon.gen_dorado_oficial;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +32,8 @@ public class DashboardUser extends AppCompatActivity {
     //Inicialozamos variables de show
     TextView shownombre,showapellido,showrol,showcedula;
     ImageView imgperfil;
-    Button cerrarsesion,btneditarinfo;
+    Button cerrarsesion,btneditarinfo,btn_regresar_dash;
+    Toolbar toolbar_dashboard;
 
 
     @Override
@@ -55,6 +57,20 @@ public class DashboardUser extends AppCompatActivity {
         showcedula = findViewById(R.id.showcedula);
         cerrarsesion = findViewById(R.id.Cerrarsesion);
         btneditarinfo= findViewById(R.id.btneditarinfo);
+        //modificar color y nombre del toolbar
+        toolbar_dashboard = findViewById(R.id.toolbar_dashboard);
+        setSupportActionBar(toolbar_dashboard);
+        getSupportActionBar().setTitle("Dashboard");
+
+        //regresar dash
+        btn_regresar_dash = findViewById(R.id.btn_regresar_dash);
+        btn_regresar_dash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardUser.this,HomeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         cerrarsesion.setOnClickListener(new View.OnClickListener() {
             @Override

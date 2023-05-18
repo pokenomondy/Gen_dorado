@@ -57,6 +57,8 @@ public class recordarPatrones extends AppCompatActivity {
     int normalTime = 60;
     int addTime = 30;
     int nivel = 0;
+    boolean[] logrosVerificar = new boolean[5];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,8 +164,6 @@ public class recordarPatrones extends AppCompatActivity {
             }
 
             public void onFinish() {
-
-                puntuacion = 0;
                 firtsTime = true;
 
                 temporizador.setText("Tiempo terminado!");
@@ -190,6 +190,8 @@ public class recordarPatrones extends AppCompatActivity {
 
                 Toast.makeText(recordarPatrones.this, "Iniciando nuevo juego!", Toast.LENGTH_SHORT).show();
 
+
+                puntuacion = 0;
                 init();
 
             }
@@ -209,6 +211,14 @@ public class recordarPatrones extends AppCompatActivity {
         aciertos = 0;
     }
 
+    private void cargarLogros(){
+        logrosVerificar[0] = true;
+        logrosVerificar[1] = true;
+        logrosVerificar[2] = true;
+        logrosVerificar[3] = true;
+        logrosVerificar[4] = true;
+    }
+
     private void cargarImagenes(){
         lgro00 = dialog.findViewById(R.id.logro00);
         lgro01 = dialog.findViewById(R.id.logro01);
@@ -216,12 +226,23 @@ public class recordarPatrones extends AppCompatActivity {
         lgro03 = dialog.findViewById(R.id.logro03);
         lgro04 = dialog.findViewById(R.id.logro04);
 
-        lgro00.setImageResource(R.drawable.logro00);
-        lgro01.setImageResource(R.drawable.logro01);
-        lgro02.setImageResource(R.drawable.logro02);
-        lgro03.setImageResource(R.drawable.logro03);
-        lgro04.setImageResource(R.drawable.logro04);
+        cargarLogros();
 
+        if(logrosVerificar[0]){
+            lgro00.setImageResource(R.drawable.logro00);
+        }
+        if(logrosVerificar[1]){
+            lgro01.setImageResource(R.drawable.logro01);
+        }
+        if(logrosVerificar[2]){
+            lgro02.setImageResource(R.drawable.logro02);
+        }
+        if(logrosVerificar[3]){
+            lgro03.setImageResource(R.drawable.logro03);
+        }
+        if(logrosVerificar[4]){
+            lgro04.setImageResource(R.drawable.logro04);
+        }
 
         imagenes = new int[]{
                 R.drawable.imgre00,
