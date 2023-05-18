@@ -4,7 +4,9 @@
     android:layout_height="350dp"
     android:padding="4dp"
     android:layout_gravity="center"
-    android:background="@drawable/dialogatractivo">
+    android:background="@drawable/dialogatractivo"
+    android:animateLayoutChanges="true"
+    android:windowAnimationStyle="@style/DialogAnimationFromTop">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -32,7 +34,7 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="130dp"
+                    android:layout_width="140dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:layout_gravity="left"
@@ -68,7 +70,7 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="130dp"
+                    android:layout_width="140dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:layout_gravity="left"
@@ -103,7 +105,7 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="130dp"
+                    android:layout_width="140dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:gravity="center">
@@ -118,18 +120,11 @@
 
 
 
-                <EditText
+                <Button
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:hint="Cada cuanto?"
-                    android:id="@+id/dosisintervalo"
-                    android:inputType="number"
-                    style="@style/texview_morado_rendondo"
-                    android:textAlignment="center"
-                    android:padding="20px"
-                    android:singleLine="true"/>
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:text="Seleccionar hora"
+                    android:id="@+id/dosisintervalo"/>            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
@@ -146,15 +141,15 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="130dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center">
 
                     <Button
                         android:id="@+id/btnsendmedicamento"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
                         android:text="Aceptar"
                         style="@style/boton_redondo_morado"
                         android:layout_marginLeft="40dp"/>
@@ -164,8 +159,8 @@
 
                 <Button
                     android:id="@+id/btneliminarmedicamento"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
                     android:text="Borrar"
                     style="@style/boton_redondo_rojo"
                     android:layout_marginLeft="30dp"
