@@ -178,7 +178,7 @@ public class Medicamentos extends AppCompatActivity {
                             String medicamentokey = medicamentoid.push().getKey();
                             String useruid = firebaseAuth.getCurrentUser().getUid();
                             int dosisnum = Integer.parseInt(dosismedicamento.getText().toString());
-                            com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR, intervaloaplicacion.getText().toString(),medicamentokey,0,useruid);
+                            com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR,medicamentokey,0,useruid, horaaplicado, minutoaplicado);
                             BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentokey).setValue(medicamentos);
                             dialog.dismiss();
                     }

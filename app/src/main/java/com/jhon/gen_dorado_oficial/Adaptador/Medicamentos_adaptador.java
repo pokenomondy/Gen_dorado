@@ -75,7 +75,7 @@
             Medicamentos medicamento = medicamentos.get(position);
             holder.medicamentonombre.setText(medicamento.getMedicamento());
             // Se tiene que obtener, el valor del string en este INT, para que se setee el texto
-            holder.dosisintervalo.setText(medicamento.getIntervaloaplicacion()+"hr");
+            holder.dosisintervalo.setText(medicamento.getHora()+":"+medicamento.getMinuto()+"hrs");
             holder.horaaplicacion.setText(medicamento.getHorario());
             holder.siguientemedicamento.setText(medicamento.getCalcsigmedicamento());
 
@@ -113,7 +113,7 @@
             int numnuevotomado = numtomado+1;
             int dosisactual = medicamento.getDosis();
             String nombremedimcaneto = medicamento.getMedicamento();
-            String intervalo = medicamento.getIntervaloaplicacion();
+            int intervalo = medicamento.getHora();
 
             //icon con historial  - > hay que llamar familiares, y cuando sea un acudiente se llame lista desde uid familiar
             holder.icon_historial.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +133,7 @@
                     recycler_historial.setAdapter(historial_adaptador);
                     Toast.makeText(v.getContext(),"Sirve",Toast.LENGTH_SHORT).show();
 
-                    dosisintervalohistorial.setText(medicamento.getIntervaloaplicacion());
+                    dosisintervalohistorial.setText(medicamento.getHora()+":"+medicamento.getMinuto());
                     medicamentonombrehistorial.setText(medicamento.getMedicamento());
 
 
@@ -242,9 +242,6 @@
                                 dosisnum = medicamento.getDosis();
                             }else{
                                 dosisnum = Integer.parseInt(dosismedicamento.getText().toString());
-                            }
-                            if (intervaloaplicacion.getText().toString().equals("")){
-                                interaplica = medicamento.getIntervaloaplicacion();
                             }
                             Map<String, Object> updates = new HashMap<>();
                             updates.put("dosis", dosisnum);
