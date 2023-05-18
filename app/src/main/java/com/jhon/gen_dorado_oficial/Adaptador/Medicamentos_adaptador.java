@@ -278,6 +278,9 @@
                             updates.put("dosis", dosisnum);
                             updates.put("medicamento",namemedicamento);
                             updates.put("intervaloaplicacion",interaplica);
+                            updates.put("hora",horaaplicado[0]);
+                            updates.put("minuto",minutoaplicado[0]);
+
                             //poner dosis num
                             BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).updateChildren(updates);
 
