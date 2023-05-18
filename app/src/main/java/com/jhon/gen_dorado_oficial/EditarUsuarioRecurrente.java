@@ -2,7 +2,9 @@ package com.jhon.gen_dorado_oficial;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,12 +29,13 @@ public class EditarUsuarioRecurrente extends AppCompatActivity {
     EditText editnombre_Recurrente,editapellido_recurrente;
     TextView showrol,showcedula;
     String editnombre,editapellido;
-    Button btrneditarinfo;
+    Button btrneditarinfo,btn_regresar_dash_editar;
     //bases de datos
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference BASE_DE_DATOS;
+    Toolbar toolvar_editarusuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,23 @@ public class EditarUsuarioRecurrente extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
         updatedatos();
+
+        //toolbar editar usuario
+        toolvar_editarusuario = findViewById(R.id.toolvar_editarusuario);
+        setSupportActionBar(toolvar_editarusuario);
+        getSupportActionBar().setTitle("Editar información");
+
+        //regresar a dashboard principal
+        btn_regresar_dash_editar = findViewById(R.id.btn_regresar_dash_editar);
+        btn_regresar_dash_editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditarUsuarioRecurrente.this,DashboardUser.class);
+                startActivity(intent);
+            }
+        });
+
+
         btrneditarinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +91,7 @@ public class EditarUsuarioRecurrente extends AppCompatActivity {
 
                 BASE_DE_DATOS.child(firebaseAuth.getUid()).child("Nombre").setValue(nombreusar);
                 BASE_DE_DATOS.child(firebaseAuth.getUid()).child("Apellido").setValue(apellidousar);
+                Toast.makeText(EditarUsuarioRecurrente.this,"Cambio realizado con exito",Toast.LENGTH_SHORT).show();
 
             }
         });

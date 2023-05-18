@@ -14,6 +14,7 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.TimePickerDialog;
 import android.content.pm.PackageManager;
 import android.database.DataSetObserver;
 import android.hardware.lights.LightState;
@@ -24,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -62,6 +64,8 @@ public class Medicamentos extends AppCompatActivity {
     Toolbar toolbara_medicamento;
     //notificaciones
     private static final String CHANNEL_ID = "canal";
+
+    int horaaplicado,minutoaplicado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,8 +148,28 @@ public class Medicamentos extends AppCompatActivity {
                 fechaR.put("hora", hora);
                 fechaR.put("minuto", minuto);
                 fechaR.put("segundo", segundo);
-                //oprimir boton dentro del dialog
+                //time picker dentro
 
+                intervaloaplicacion.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                horaaplicado = hourOfDay;
+                                minutoaplicado = minute;
+                                intervaloaplicacion.setText(String.format(Locale.getDefault(),"%02d:%02d",horaaplicado,minutoaplicado));
+                            }
+                        };
+
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(Medicamentos.this, onTimeSetListener,horaaplicado,minutoaplicado,true);
+                        timePickerDialog.setTitle("Seleccione la hora");
+                        timePickerDialog.show();
+                    }
+                });
+
+
+                //oprimir boton dentro del dialog
                 btnsendmedicamento.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
