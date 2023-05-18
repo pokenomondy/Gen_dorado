@@ -95,6 +95,7 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -130,6 +131,7 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -174,17 +176,33 @@
         app:layout_constraintVertical_bias="0.685"
         app:srcCompat="@drawable/userprefault" />
 
-    <Button
-        android:id="@+id/btrneditarinfo"
-        style="@style/boton_redondo_morado"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="136dp"
-        android:text="Editar"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat"
+        app:layout_constraintVertical_bias="0.251">
+
+        <Button
+            android:id="@+id/btn_regresar_dash_editar"
+            style="@style/boton_redondo_morado"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="REGRESAR" />
+
+        <Button
+            android:id="@+id/btrneditarinfo"
+            style="@style/boton_redondo_morado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Editar" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
