@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.Data;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.jhon.gen_dorado_oficial.Objetos.Familiares;
 import com.jhon.gen_dorado_oficial.Objetos.Medicamentos;
 import com.jhon.gen_dorado_oficial.R;
+import com.jhon.gen_dorado_oficial.servicios.workerService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +69,6 @@ public class Familiares_adaptador extends RecyclerView.Adapter<Familiares_adapta
         firebaseDatabase = FirebaseDatabase.getInstance();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
-
 
         BASE_DE_DATOS.child(uidfamiliar).child("Medicamentos").addValueEventListener(new ValueEventListener() {
             @Override

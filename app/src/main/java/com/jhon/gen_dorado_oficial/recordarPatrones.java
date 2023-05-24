@@ -38,7 +38,7 @@ public class recordarPatrones extends AppCompatActivity {
     //Cronometro
     TextView temporizador;
     CountDownTimer countDownTimer;
-    int gameTime,puntaje_maximiliano;
+    int gameTime, globalTime;
     Dialog dialog;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
@@ -71,7 +71,7 @@ public class recordarPatrones extends AppCompatActivity {
     final android.os.Handler handler = new Handler();
     int normalTime = 60;
     int addTime = 30;
-    int nivel = 0;
+    int nivel = 0, rondas, countSuperadoMaximo=0;
     boolean[] logrosVerificar = new boolean[5];
 
 
@@ -198,8 +198,20 @@ public class recordarPatrones extends AppCompatActivity {
                     init();
                 }
 
-                gameTime--;
+                if (!logrosVerificar[2] && rondas>=5){
+                    logrosVerificar[2] = true;
+                    lgro02.setImageResource(R.drawable.logro02);
+                    Toast.makeText(recordarPatrones.this, "Nuevo logro! Lograste 5 rondas en una partida", Toast.LENGTH_SHORT).show();
+                }
 
+                if (!logrosVerificar[4] && rondas>=10){
+                    logrosVerificar[4] = true;
+                    lgro04.setImageResource(R.drawable.logro04);
+                    Toast.makeText(recordarPatrones.this, "Nuevo logro! Lograste 10 rondas en una partida", Toast.LENGTH_SHORT).show();
+                }
+
+                gameTime--;
+                globalTime++;
                 temporizador.setText(String.valueOf(gameTime));
 
 
@@ -215,17 +227,24 @@ public class recordarPatrones extends AppCompatActivity {
 
                 if (puntuacion > maximoScore){
                     Toast.makeText(recordarPatrones.this, "Enhorabuena, haz alcanzado un nuevo record!", Toast.LENGTH_SHORT).show();
-                    
-                    
+                    countSuperadoMaximo++;
+
                     maximoScore = puntuacion;
                     //Guardar maximoScore en Firebase
+
                     BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("JUEGO MEMORIA").setValue(maximoScore);
                     BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("uid").setValue(firebaseUser.getUid());
                     BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("num_celular").setValue(firebaseUser.getPhoneNumber());
 
 
-                    //llamar
+                    //Guardar
+
                     puntajeMaximo.setText("Puntaje maximo: " + maximoScore);
+                    if (countSuperadoMaximo >=3 && !logrosVerificar[0]){
+                        logrosVerificar[0] = true;
+                        lgro00.setImageResource(R.drawable.logro00);
+                        Toast.makeText(recordarPatrones.this, "Nuevo logro! Supera tu puntaje maximo 3 veces", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 handler.postDelayed(new Runnable() {
@@ -237,10 +256,15 @@ public class recordarPatrones extends AppCompatActivity {
 
                 Toast.makeText(recordarPatrones.this, "Iniciando nuevo juego!", Toast.LENGTH_SHORT).show();
 
+                if(!logrosVerificar[1]){
+                    logrosVerificar[1] = true;
+                    lgro01.setImageResource(R.drawable.logro01);
+                    Toast.makeText(recordarPatrones.this, "Nuevo logro! Terminaste el juego por primera vez", Toast.LENGTH_SHORT).show();
+                }
 
                 puntuacion = 0;
+                rondas = 1;
                 init();
-
             }
         }.start();
     }
@@ -258,11 +282,11 @@ public class recordarPatrones extends AppCompatActivity {
     }
 
     private void cargarLogros(){
-        logrosVerificar[0] = true;
-        logrosVerificar[1] = true;
-        logrosVerificar[2] = true;
-        logrosVerificar[3] = true;
-        logrosVerificar[4] = true;
+        logrosVerificar[0] = false;
+        logrosVerificar[1] = false;
+        logrosVerificar[2] = false;
+        logrosVerificar[3] = false;
+        logrosVerificar[4] = false;
     }
 
     private void cargarImagenes(){
@@ -347,18 +371,18 @@ public class recordarPatrones extends AppCompatActivity {
                     aciertos = 0;
 
                     Toast.makeText(this, "+"+String.valueOf(addTime)+"segs", Toast.LENGTH_SHORT).show();
+                    rondas++;
+                    if(globalTime <= 15 && !logrosVerificar[3]){
+                        logrosVerificar[3] = true;
+                        lgro03.setImageResource(R.drawable.logro03);
+                        Toast.makeText(this, "Nuevo logro! Completa una ronda en menos de 15 segundos", Toast.LENGTH_SHORT).show();
+                    }
                     iniciar_Temporizador(gameTime+addTime);
 
                     if (nivel<4){
                         addTime-=5;
                     }
 
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(recordarPatrones.this, "Iniciando nueva ronda!", Toast.LENGTH_SHORT).show();
-                        }
-                    },1500);
                 }
             }else{
                 handler.postDelayed(new Runnable() {
