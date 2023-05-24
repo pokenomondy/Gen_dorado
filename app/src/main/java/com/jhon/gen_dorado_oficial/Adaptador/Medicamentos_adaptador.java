@@ -249,8 +249,8 @@
                                 }
                             };
 
-                            TimePickerDialog timePickerDialog = new TimePickerDialog(v.getContext(), onTimeSetListener, horaaplicado[0], minutoaplicado[0],true);
-                            timePickerDialog.setTitle("Seleccione la hora");
+                            TimePickerDialog timePickerDialog = new TimePickerDialog(v.getContext(),R.style.MyTimePickerStyle, onTimeSetListener, horaaplicado[0], minutoaplicado[0],true);
+                            timePickerDialog.setTitle("Seleccione el intervalo de aplicación");
                             timePickerDialog.show();
                         }
                     });

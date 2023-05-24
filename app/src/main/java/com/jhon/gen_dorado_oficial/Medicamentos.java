@@ -41,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.jhon.gen_dorado_oficial.Adaptador.Medicamentos_adaptador;
 import com.jhon.gen_dorado_oficial.Objetos.Familiares;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -167,8 +168,8 @@ public class Medicamentos extends AppCompatActivity {
                             }
                         };
 
-                        TimePickerDialog timePickerDialog = new TimePickerDialog(Medicamentos.this, onTimeSetListener,horaaplicado,minutoaplicado,true);
-                        timePickerDialog.setTitle("Seleccione la hora");
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(Medicamentos.this,R.style.MyTimePickerStyle, onTimeSetListener,horaaplicado,minutoaplicado,true);
+                        timePickerDialog.setTitle("Seleccione el intervalo de aplicación");
                         timePickerDialog.show();
                     }
                 });
@@ -178,7 +179,10 @@ public class Medicamentos extends AppCompatActivity {
                 btnsendmedicamento.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                            //convertir a numero la dosis
+                        //verificar que llene la información
+                        if (nombremedicamento.getText().toString().isEmpty() || dosismedicamento.getText().toString().isEmpty() || intervaloaplicacion.getText().toString().isEmpty()) {
+                            Toast.makeText(getApplicationContext(), "Llena toda la información ", Toast.LENGTH_SHORT).show();
+                        } else {
                             DatabaseReference medicamentoid = FirebaseDatabase.getInstance().getReference("Medicamentos");
                             String medicamentokey = medicamentoid.push().getKey();
                             String useruid = firebaseAuth.getCurrentUser().getUid();
@@ -186,6 +190,9 @@ public class Medicamentos extends AppCompatActivity {
                             com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamentos = new com.jhon.gen_dorado_oficial.Objetos.Medicamentos(nombremedicamento.getText().toString(), dosisnum, fechaR,medicamentokey,0,useruid, horaaplicado, minutoaplicado);
                             BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentokey).setValue(medicamentos);
                             dialog.dismiss();
+                        }
+
+
                     }
                 });
                 dialog.show();
