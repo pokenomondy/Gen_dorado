@@ -6,36 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".Minijuegos">
 
+    <include
+        android:id="@+id/toolbar_minijuegos"
+        layout="@layout/toolbar_home"/>
+
     <Button
         android:id="@+id/RecordarPatrones"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/minijuego_1"
-        android:textStyle="bold"
+        android:layout_marginTop="88dp"
         android:background="@drawable/boton_redondo_minijuegos"
+        android:text="@string/minijuego_1"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:textColor="@color/white"
-        android:textSize="20sp">
-    </Button>
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></Button>
 
     <Button
         android:id="@+id/Minijuego2"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="31dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="88dp"
         android:layout_marginEnd="40dp"
-        android:text="Minijuegos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/RecordarPatrones"
-        app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/boton_redondo_minijuegos"
-        android:textStyle="bold"
+        android:text="Minijuegos"
         android:textColor="@color/white"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/RecordarPatrones"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

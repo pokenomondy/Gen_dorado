@@ -1,6 +1,7 @@
 package com.jhon.gen_dorado_oficial;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 public class Minijuegos extends AppCompatActivity {
 
     Button btnRecordar_Patrones, btnMinJuego2;
+    Toolbar toolbar_minijuegos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +21,13 @@ public class Minijuegos extends AppCompatActivity {
         btnRecordar_Patrones = findViewById(R.id.RecordarPatrones);
         btnMinJuego2 = findViewById(R.id.Minijuego2);
         init();
+        //modificar color y nombre del toolbar
+        toolbar_minijuegos = findViewById(R.id.toolbar_minijuegos);
+        setSupportActionBar(toolbar_minijuegos);
+        getSupportActionBar().setTitle("Minijuegos");
+
+
+
     }
 
     public void init(){
