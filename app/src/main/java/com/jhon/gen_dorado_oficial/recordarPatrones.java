@@ -361,7 +361,6 @@ public class recordarPatrones extends AppCompatActivity {
 
 
                 }else{
-                    Toast.makeText(recordarPatrones.this,"Juega primera vez",Toast.LENGTH_SHORT).show();
                     logrosVerificar[0] = false;
                     logrosVerificar[1] = false;
                     logrosVerificar[2] = false;
