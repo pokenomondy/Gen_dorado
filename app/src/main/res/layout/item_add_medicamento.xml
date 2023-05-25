@@ -118,13 +118,17 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-
                 <Button
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:text="Seleccionar hora"
-                    android:id="@+id/dosisintervalo"/>            </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:id="@+id/dosisintervalo"
+                    style="@style/boton_hora"/>
+
+
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"

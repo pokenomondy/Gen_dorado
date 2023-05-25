@@ -1,11 +1,14 @@
 package com.jhon.gen_dorado_oficial;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -15,10 +18,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.LogRecord;
 
@@ -30,6 +43,10 @@ public class recordarPatrones extends AppCompatActivity {
     CountDownTimer countDownTimer;
     int gameTime, globalTime;
     Dialog dialog;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference BASE_DE_DATOS;
 
     // Variables definidas
     ImageButton imb00, imb01, imb02, imb03, imb04, imb05, imb06, imb07, imb08, imb09, imb10, imb11, imb12, imb13, imb14, imb15;
@@ -39,6 +56,7 @@ public class recordarPatrones extends AppCompatActivity {
 
     Button btn_reiniciar, btn_salir, logros, salirDialog;
     TextView puntajeText, puntajeMaximo;
+
 
     int puntuacion;
     int aciertos;
@@ -57,15 +75,52 @@ public class recordarPatrones extends AppCompatActivity {
     int normalTime = 60;
     int addTime = 30;
     int nivel = 0, rondas, countSuperadoMaximo=0;
+    Toolbar tolbar_recordarpatron;
     boolean[] logrosVerificar = new boolean[5];
+    List<Boolean> logrosVerificarList;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recordar_patrones);
+
+        //modificar color y nombre del toolbar
+        tolbar_recordarpatron = findViewById(R.id.tolbar_recordarpatron);
+        setSupportActionBar(tolbar_recordarpatron);
+        getSupportActionBar().setTitle("Recordar patrones");
+
+        //Firebase y datos de puntuación, se cargar de primero antes que todo
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        BASE_DE_DATOS = firebaseDatabase.getReference("PUNTAJES_MAX");
+
+
+        Query query = BASE_DE_DATOS.orderByChild("num_celular").equalTo(firebaseUser.getPhoneNumber());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    //OBTENER VALORES DE BASE DA DATOS
+                    String puntaje = "" + ds.child("JUEGO MEMORIA").getValue();
+                    maximoScore = Integer.parseInt(puntaje);
+                    puntajeMaximo.setText("Puntaje maximo: " + maximoScore);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         cargar();
         iniciar_Temporizador(normalTime);
+
+
+
+
     }
 
     private void cargarTablero(){
@@ -159,13 +214,29 @@ public class recordarPatrones extends AppCompatActivity {
                 if (!logrosVerificar[2] && rondas>=5){
                     logrosVerificar[2] = true;
                     lgro02.setImageResource(R.drawable.logro02);
+                    //guardar logro verificar
                     Toast.makeText(recordarPatrones.this, "Nuevo logro! Lograste 5 rondas en una partida", Toast.LENGTH_SHORT).show();
+                    //guardar en base de datos
+                    //verificar logro 2
+                    logrosVerificarList = new ArrayList<Boolean>();
+                    for (int i = 0; i < logrosVerificar.length; i++) {
+                        logrosVerificarList.add(logrosVerificar[i]);
+                    }
+                    // Guarda la Lista en firebase
+                    BASE_DE_DATOS.child(firebaseUser.getUid()).child("logros").setValue(logrosVerificarList);
                 }
 
                 if (!logrosVerificar[4] && rondas>=10){
                     logrosVerificar[4] = true;
                     lgro04.setImageResource(R.drawable.logro04);
                     Toast.makeText(recordarPatrones.this, "Nuevo logro! Lograste 10 rondas en una partida", Toast.LENGTH_SHORT).show();
+                    //verificar logro 4
+                    logrosVerificarList = new ArrayList<Boolean>();
+                    for (int i = 0; i < logrosVerificar.length; i++) {
+                        logrosVerificarList.add(logrosVerificar[i]);
+                    }
+                    // Guarda la Lista en firebase
+                    BASE_DE_DATOS.child(firebaseUser.getUid()).child("logros").setValue(logrosVerificarList);
                 }
 
                 gameTime--;
@@ -177,6 +248,9 @@ public class recordarPatrones extends AppCompatActivity {
 
             public void onFinish() {
                 firtsTime = true;
+                //comprobar datos
+                //Guardar
+
 
                 temporizador.setText("Tiempo terminado!");
 
@@ -187,6 +261,10 @@ public class recordarPatrones extends AppCompatActivity {
                     maximoScore = puntuacion;
                     //Guardar maximoScore en Firebase
 
+                    BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("JUEGO MEMORIA").setValue(maximoScore);
+                    BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("uid").setValue(firebaseUser.getUid());
+                    BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("num_celular").setValue(firebaseUser.getPhoneNumber());
+
 
                     //Guardar
 
@@ -195,6 +273,14 @@ public class recordarPatrones extends AppCompatActivity {
                         logrosVerificar[0] = true;
                         lgro00.setImageResource(R.drawable.logro00);
                         Toast.makeText(recordarPatrones.this, "Nuevo logro! Supera tu puntaje maximo 3 veces", Toast.LENGTH_SHORT).show();
+                        //verificar logro 0
+                        logrosVerificarList = new ArrayList<Boolean>();
+                        for (int i = 0; i < logrosVerificar.length; i++) {
+                            logrosVerificarList.add(logrosVerificar[i]);
+                        }
+                        // Guarda la Lista en firebase
+                        BASE_DE_DATOS.child(firebaseUser.getUid()).child("logros").setValue(logrosVerificarList);
+
                     }
                 }
 
@@ -211,6 +297,14 @@ public class recordarPatrones extends AppCompatActivity {
                     logrosVerificar[1] = true;
                     lgro01.setImageResource(R.drawable.logro01);
                     Toast.makeText(recordarPatrones.this, "Nuevo logro! Terminaste el juego por primera vez", Toast.LENGTH_SHORT).show();
+
+                    //verificar logro 1
+                    logrosVerificarList = new ArrayList<Boolean>();
+                    for (int i = 0; i < logrosVerificar.length; i++) {
+                        logrosVerificarList.add(logrosVerificar[i]);
+                    }
+                    // Guarda la Lista en firebase
+                    BASE_DE_DATOS.child(firebaseUser.getUid()).child("logros").setValue(logrosVerificarList);
                 }
 
                 puntuacion = 0;
@@ -228,27 +322,73 @@ public class recordarPatrones extends AppCompatActivity {
     }
 
     private void cargarPuntuacion(){
-        //Obtener maximo Score desde Firebase
-        maximoScore = 0; //Incluir el maximo score en la variable
         aciertos = 0;
     }
 
     private void cargarLogros(){
-        logrosVerificar[0] = false;
-        logrosVerificar[1] = false;
-        logrosVerificar[2] = false;
-        logrosVerificar[3] = false;
-        logrosVerificar[4] = false;
+        //cargarlogros
+        Query queryy = BASE_DE_DATOS.child( firebaseUser.getUid()).child("logros");
+        queryy.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    //cargar logros no existe nada , pues no pasa nada
+
+                    Query query = BASE_DE_DATOS.child(firebaseUser.getUid())
+                            .child("logros");
+
+                    query.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Boolean logro;
+                            int countlog= 0;
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                logro = ds.getValue(Boolean.class);
+                                logrosVerificar[countlog] = logro;
+                                countlog++;
+
+                            }
+
+                            cargarImagenesLogros();
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.e("Error", "Error reading data", error.toException());
+                        }
+                    });
+
+
+                }else{
+                    logrosVerificar[0] = false;
+                    logrosVerificar[1] = false;
+                    logrosVerificar[2] = false;
+                    logrosVerificar[3] = false;
+                    logrosVerificar[4] = false;
+                    cargarImagenesLogros();
+                }
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
     }
 
-    private void cargarImagenes(){
+    private void cargarImagenesLogros(){
         lgro00 = dialog.findViewById(R.id.logro00);
         lgro01 = dialog.findViewById(R.id.logro01);
         lgro02 = dialog.findViewById(R.id.logro02);
         lgro03 = dialog.findViewById(R.id.logro03);
         lgro04 = dialog.findViewById(R.id.logro04);
 
-        cargarLogros();
 
         if(logrosVerificar[0]){
             lgro00.setImageResource(R.drawable.logro00);
@@ -265,7 +405,8 @@ public class recordarPatrones extends AppCompatActivity {
         if(logrosVerificar[4]){
             lgro04.setImageResource(R.drawable.logro04);
         }
-
+    }
+    private void cargarImagenes(){
         imagenes = new int[]{
                 R.drawable.imgre00,
                 R.drawable.imgre01,
@@ -328,6 +469,16 @@ public class recordarPatrones extends AppCompatActivity {
                         logrosVerificar[3] = true;
                         lgro03.setImageResource(R.drawable.logro03);
                         Toast.makeText(this, "Nuevo logro! Completa una ronda en menos de 15 segundos", Toast.LENGTH_SHORT).show();
+
+                        //verificar logro 3
+                        logrosVerificarList = new ArrayList<Boolean>();
+                        for (int x= 0; x < logrosVerificar.length; x++) {
+                            logrosVerificarList.add(logrosVerificar[x]);
+                        }
+                        // Guarda la Lista en firebase
+                        BASE_DE_DATOS.child(firebaseUser.getUid()).child("logros").setValue(logrosVerificarList);
+
+
                     }
                     iniciar_Temporizador(gameTime+addTime);
 
@@ -358,12 +509,13 @@ public class recordarPatrones extends AppCompatActivity {
     }
 
     private void cargar(){
+        cargarLogros();
         cargarTablero();
+        cargarPuntuacion();
         cargarDialog();
         cargarBotones();
         cargarTexViews();
         cargarImagenes();
-        cargarPuntuacion();
         firtsTime = true;
     }
 
