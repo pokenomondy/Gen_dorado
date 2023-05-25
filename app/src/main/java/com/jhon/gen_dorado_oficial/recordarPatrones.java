@@ -2,6 +2,7 @@ package com.jhon.gen_dorado_oficial;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -73,12 +74,18 @@ public class recordarPatrones extends AppCompatActivity {
     int addTime = 30;
     int nivel = 0, rondas, countSuperadoMaximo=0;
     boolean[] logrosVerificar = new boolean[5];
+    Toolbar tolbar_recordarpatron;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recordar_patrones);
+
+        //modificar color y nombre del toolbar
+        tolbar_recordarpatron = findViewById(R.id.tolbar_recordarpatron);
+        setSupportActionBar(tolbar_recordarpatron);
+        getSupportActionBar().setTitle("Recordar patrones");
 
         //Firebase y datos de puntuación, se cargar de primero antes que todo
         firebaseAuth = FirebaseAuth.getInstance();
@@ -289,7 +296,7 @@ public class recordarPatrones extends AppCompatActivity {
         logrosVerificar[4] = false;
     }
 
-    private void cargarImagenes(){
+    private void cargarImagenes(){  
         lgro00 = dialog.findViewById(R.id.logro00);
         lgro01 = dialog.findViewById(R.id.logro01);
         lgro02 = dialog.findViewById(R.id.logro02);

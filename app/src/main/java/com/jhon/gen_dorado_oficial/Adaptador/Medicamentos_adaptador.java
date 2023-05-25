@@ -28,6 +28,7 @@
     import com.google.firebase.database.DatabaseError;
     import com.google.firebase.database.DatabaseReference;
     import com.google.firebase.database.FirebaseDatabase;
+    import com.google.firebase.database.Query;
     import com.google.firebase.database.ValueEventListener;
     import com.jhon.gen_dorado_oficial.Objetos.Historialmedicamento;
     import com.jhon.gen_dorado_oficial.Objetos.Medicamentos;
@@ -84,6 +85,42 @@
             holder.horaaplicacion.setText(medicamento.getHorario());
             holder.siguientemedicamento.setText(medicamento.getCalcsigmedicamento());
 
+            //verificar si es paciente o acudiente
+            //Firebase
+            FirebaseAuth firebaseAuth;
+            FirebaseUser firebaseUser;
+            DatabaseReference BASE_DE_DATOS;
+            FirebaseDatabase firebaseDatabase;
+            firebaseAuth = FirebaseAuth.getInstance();
+            firebaseUser = firebaseAuth.getCurrentUser();
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
+            Query query = BASE_DE_DATOS.orderByChild("Numero de celular").equalTo(firebaseUser.getPhoneNumber());
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    //iterar para buscar por numero de celular
+                    for (DataSnapshot ds : snapshot.getChildren()){
+                        //OBTENER VALORES DE BASE DA DATOS
+                        String rol = ""+ds.child("rol").getValue();
+
+                        if (rol.equals("Paciente")){
+                            holder.icon_historial.setVisibility(View.INVISIBLE);
+                        }else {
+                            holder.icon_edit.setVisibility(View.INVISIBLE);
+                            holder.siguientemedicamento.setVisibility(View.INVISIBLE);
+                        }
+
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+
+
+            });
+
             String uidusuario = medicamento.getUiseruid();
 
             //NOTIFICADOR
@@ -138,7 +175,6 @@
                     Historial_adaptador historial_adaptador;
                     historial_adaptador = new Historial_adaptador(historialmedicamentoList);
                     recycler_historial.setAdapter(historial_adaptador);
-                    Toast.makeText(v.getContext(),"Sirve",Toast.LENGTH_SHORT).show();
 
                     dosisintervalohistorial.setText(medicamento.getHora()+":"+medicamento.getMinuto());
                     medicamentonombrehistorial.setText(medicamento.getMedicamento());

@@ -7,6 +7,10 @@
     tools:context=".recordarPatrones"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/tolbar_recordarpatron"
+        layout="@layout/toolbar_home"/>
+
     <Button
         android:id="@+id/logrosButtom"
         android:layout_marginTop="20dp"
