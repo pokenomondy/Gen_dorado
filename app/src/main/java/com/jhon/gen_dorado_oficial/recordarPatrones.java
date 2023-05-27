@@ -97,7 +97,6 @@ public class recordarPatrones extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         BASE_DE_DATOS = firebaseDatabase.getReference("PUNTAJES_MAX");
 
-
         Query query = BASE_DE_DATOS.orderByChild("num_celular").equalTo(firebaseUser.getPhoneNumber());
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -480,6 +479,7 @@ public class recordarPatrones extends AppCompatActivity {
 
 
                     }
+
                     iniciar_Temporizador(gameTime+addTime);
 
                     if (nivel<4){
@@ -519,6 +519,8 @@ public class recordarPatrones extends AppCompatActivity {
         firtsTime = true;
     }
 
+
+
     private void cargarDialog(){
         dialog = new Dialog(recordarPatrones.this);
         dialog.setContentView(R.layout.dialog_logros_paciente);
@@ -532,7 +534,6 @@ public class recordarPatrones extends AppCompatActivity {
         for(int i=0; i<tablero.length ; i++){
             tablero[i].setScaleType(ImageView.ScaleType.CENTER_CROP);
             tablero[i].setImageResource(imagenes[arrayDesordenada.get(i)]);
-
         }
 
         handler.postDelayed(new Runnable() {
