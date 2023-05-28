@@ -141,9 +141,11 @@ public class Verificar_numero extends AppCompatActivity {
                             if(isNewUser){
                                 Intent nuevouser = new Intent(Verificar_numero.this,RegistroNuevoUsuario.class);
                                 startActivity(nuevouser);
+                                finish();
                             }else{
                                 Intent usuariorecurrente = new Intent(Verificar_numero.this,HomeActivity.class);
                                 startActivity(usuariorecurrente);
+                                finish();
                             }
 
 

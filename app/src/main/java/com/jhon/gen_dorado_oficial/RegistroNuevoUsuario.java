@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -81,8 +83,9 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
         //Spinner para el rol
         spinnerrol = findViewById(R.id.spinerrol);
         String [] rolspinnerrespuestas = {"Paciente","Acudiente"};
-        ArrayAdapter <String> adadpterrol = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,rolspinnerrespuestas);
+        ArrayAdapter <String> adadpterrol = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,rolspinnerrespuestas);
         spinnerrol.setAdapter(adadpterrol);
+
 
         /*/inicializamos base de datos/*/
         firebaseAuth = FirebaseAuth.getInstance();
@@ -116,7 +119,7 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
                 String cedula = s.toString().trim();
                 if (!cedula.isEmpty()) {
                     Query query = BASE_DE_DATOS.orderByChild("num_cedula").equalTo(cedula);
-                    query.addValueEventListener(new ValueEventListener() {
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
@@ -132,6 +135,7 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
                             } else {
                                 // La cédula no existe en la base de datos, permitir registro
                                 btnbtnactinfo.setEnabled(true);
+
                             }
                         }
 
@@ -202,6 +206,7 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
 
                                     Intent ahome = new Intent(RegistroNuevoUsuario.this,HomeActivity.class);
                                     startActivity(ahome);
+                                    finish();
                                 }
 
 
@@ -240,8 +245,8 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
 
     //metodo para subir la foto
     private void subirPhoto(Uri image_url) {
-        Toast.makeText(RegistroNuevoUsuario.this,"Subimos foto",Toast.LENGTH_SHORT).show();
-        progressDialog.setMessage("Actualizando foto foto");
+        Toast.makeText(RegistroNuevoUsuario.this,"Actualizando foto",Toast.LENGTH_SHORT).show();
+        progressDialog.setMessage("Actualizando foto");
         progressDialog.show();
         String rute_storage_photo = storage_path + "" + photo + "" + firebaseUser.getUid() + "" + idd;
         StorageReference reference = storageReference.child(rute_storage_photo);

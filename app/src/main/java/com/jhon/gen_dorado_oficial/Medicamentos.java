@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -65,6 +66,7 @@ public class Medicamentos extends AppCompatActivity {
     Medicamentos_adaptador medicamentos_adapter;
     FloatingActionButton floatbutton;
     Toolbar toolbara_medicamento;
+    ImageView opps;
     //notificaciones
     private static final String CHANNEL_ID = "canal";
 
@@ -79,6 +81,7 @@ public class Medicamentos extends AppCompatActivity {
         //Recycler
         recycler_medicamentos = findViewById(R.id.recycler_medicamentos);
         medicamentoList = new ArrayList<>();
+        opps = findViewById(R.id.opps);
         //Firebase
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -105,8 +108,17 @@ public class Medicamentos extends AppCompatActivity {
                         dataSnapshot.getChildren()) {
                     com.jhon.gen_dorado_oficial.Objetos.Medicamentos medicamento = snapshot.getValue(com.jhon.gen_dorado_oficial.Objetos.Medicamentos.class);
                     medicamentoList.add(medicamento);
+
                 }
                 medicamentos_adapter.notifyDataSetChanged();
+
+                if(medicamentoList.isEmpty()){
+                    recycler_medicamentos.setVisibility(View.GONE);
+                    opps.setVisibility(View.VISIBLE);
+                }else{
+                    recycler_medicamentos.setVisibility(View.VISIBLE);
+                    opps.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -115,7 +127,10 @@ public class Medicamentos extends AppCompatActivity {
             }
         });
 
+
         registromedicamento();
+
+
 
     }
 

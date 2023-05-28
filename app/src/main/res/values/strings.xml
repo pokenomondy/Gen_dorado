@@ -35,6 +35,9 @@
     <string name="enviar">Enviar</string>
     <string name="apodofamiliar">Ingrese apodo</string>
     <string name="bienbenida_medicamentos">No olvides tomar tus medicamentos dentro\nde la hora establecida por tu doctor</string>
+    <string name="bienbenida_medicamentos2">Recuerda cuidar de ti mismo y de tu salud,\n tomando tus medicamentos a tiempo. \n
+Una pequeña acción que puede marcar una gran diferencia en tu bienestar. \n
+¡No dejes que el olvido te juegue en contra!</string>
     <string name="tiempo">00hr</string>
     <string name="MEDICAMENTO">[MEDICAMENTO]</string>
     <string name="Siguiente_medicamento">Siguiente medicamento dentro de x horas y x minutos</string>

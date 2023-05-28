@@ -90,4 +90,23 @@
         <item name="android:layout_height">350dp</item>
     </style>
 
+    <style name="MiSpinnerStyle">
+        <item name="android:background">@drawable/fondo_spinner</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">0dp</item>
+
+        <!-- Otros atributos que quieras agregar -->
+    </style>
+
+    <style name="MySpinnerDropdownStyle" parent="Widget.AppCompat.Spinner.DropDown">
+        <item name="android:padding">16dp</item> <!-- Espaciado exterior -->
+        <item name="android:background">@android:color/white</item> <!-- Fondo de la lista -->
+        <item name="android:divider">@android:color/black</item> <!-- Color de la línea separadora entre elementos -->
+        <item name="android:dividerHeight">1dp</item> <!-- Grosor de la línea separadora -->
+        <item name="android:popupBackground">@color/morado</item> <!-- Fondo del Spinner -->
+        <item name="android:textColor">@color/black</item> <!-- Color del texto -->
+        <item name="android:textSize">20sp</item> <!-- Tamaño del texto -->
+    </style>
+
 </resources>
