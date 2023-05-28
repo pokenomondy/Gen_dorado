@@ -12,8 +12,8 @@ android {
         applicationId "com.jhon.gen_dorado_oficial"
         minSdk 24
         targetSdk 33
-        versionCode 4
-        versionName "1.03"
+        versionCode 5
+        versionName "1.04"
         multiDexEnabled = true
 
 
@@ -48,7 +48,6 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     implementation 'com.google.firebase:firebase-database:20.0.4'
     implementation 'com.google.firebase:firebase-auth:21.0.3'
-    implementation 'com.google.firebase:firebase-firestore:24.1.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -57,14 +56,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.firebase:firebase-storage:20.0.1'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.firebase:firebase-firestore:24.1.1'
     implementation 'com.firebaseui:firebase-ui-firestore:7.2.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.browser:browser:1.5.0'
     implementation 'com.google.firebase:firebase-analytics:17.6.0'
-
-
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 
 }

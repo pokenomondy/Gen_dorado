@@ -65,6 +65,17 @@
                         android:layout_marginTop="3dp"
                         android:layout_marginLeft="10dp"/>
 
+                    <TextView
+                        android:id="@+id/tomadoexpirado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yatomado"
+                        android:textColor="#FF0000"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginLeft="10dp"
+                        android:visibility="gone"/>
+
+
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -94,6 +105,16 @@
                             android:src="@drawable/historial"
                             android:id="@+id/icon_historial"
                             android:layout_marginRight="3dp"/>
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_edit"
+                            android:id="@+id/icon_delete"
+                            android:layout_marginRight="3dp"
+                            android:visibility="gone"/>
+
+
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
