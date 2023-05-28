@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class Minijuegos extends AppCompatActivity {
 
-    Button btnRecordar_Patrones, btnMinJuego2;
+    Button btnRecordar_Patrones;
     Toolbar toolbar_minijuegos;
 
     @Override
@@ -36,12 +36,6 @@ public class Minijuegos extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Minijuegos.this,recordarPatrones.class);
                 startActivity(intent);
-            }
-        });
-
-        btnMinJuego2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
             }
         });
 
