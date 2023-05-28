@@ -168,7 +168,7 @@ public class Medicamentos extends AppCompatActivity {
                             }
                         };
 
-                        TimePickerDialog timePickerDialog = new TimePickerDialog(Medicamentos.this,R.style.MyTimePickerStyle, onTimeSetListener,horaaplicado,minutoaplicado,true);
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(dialog.getContext(),R.style.MyTimePickerStyle, onTimeSetListener,horaaplicado,minutoaplicado,true);
                         timePickerDialog.setTitle("Seleccione el intervalo de aplicación");
                         timePickerDialog.show();
                     }

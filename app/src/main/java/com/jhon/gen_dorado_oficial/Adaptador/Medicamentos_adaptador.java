@@ -75,6 +75,11 @@
         }
         // FIN FUNCIONES NOTIFICADOR
 
+        public void reset() {
+            medicamentos.clear(); // Borra la lista de datos
+            notifyDataSetChanged(); // Notifica al adapter de los cambios
+        }
+
 
         @Override
         public void onBindViewHolder(@NonNull MedicamentosViewHolder holder, int position) {
@@ -108,7 +113,7 @@
                             holder.icon_historial.setVisibility(View.INVISIBLE);
                         }else {
                             holder.icon_edit.setVisibility(View.INVISIBLE);
-                            holder.siguientemedicamento.setVisibility(View.INVISIBLE);
+                            holder.icn_registrar.setVisibility(View.INVISIBLE);
                         }
 
                     }
@@ -121,10 +126,9 @@
 
             });
 
+            //Verificar si el usuario ya se tomo todas las dosis
             String uidusuario = medicamento.getUiseruid();
-
             //NOTIFICADOR
-
             long time = medicamento.obtenerMillis();
             String key = medicamento.getMedicamento()+medicamento.getNum_tomado()+medicamento.getId();
             Data data = guardarData( medicamento.getMedicamento() + " - " + medicamento.getHorario(), "Es hora de tomar tu medicamento", medicamento.getNum_tomado());
@@ -157,6 +161,28 @@
             String nombremedimcaneto = medicamento.getMedicamento();
             int intervalo = medicamento.getHora();
 
+            //Tomado expirado
+            if (dosisactual==medicamento.getNum_tomado()){
+                holder.tomadoexpirado.setVisibility(View.VISIBLE);
+                holder.icon_edit.setVisibility(View.GONE);
+                holder.icn_registrar.setVisibility(View.GONE);
+                holder.icon_delete.setVisibility(View.VISIBLE);
+                holder.icon_delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FirebaseAuth firebaseAuth;
+                        FirebaseDatabase firebaseDatabase;
+                        DatabaseReference BASE_DE_DATOS;
+                        firebaseDatabase = FirebaseDatabase.getInstance();
+                        String medicamentoId = medicamento.getId();
+                        BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
+                        DatabaseReference medicamentoREF = BASE_DE_DATOS.child(firebaseUser.getUid()).child("Medicamentos").child(medicamentoId);
+                        medicamentoREF.removeValue();
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, medicamentos.size());
+                    }
+                });
+            }
             //icon con historial  - > hay que llamar familiares, y cuando sea un acudiente se llame lista desde uid familiar
             holder.icon_historial.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -390,14 +416,7 @@
 
                             BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId).child("Historialmedicamento").push().setValue(historialmedicamento);
 
-                            if (numnuevotomado>dosisactual){
 
-                                firebaseDatabase = FirebaseDatabase.getInstance();
-                                String medicamentoId = medicamento.getId();
-                                BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
-                                DatabaseReference medicamentoREF = BASE_DE_DATOS.child(firebaseAuth.getCurrentUser().getUid()).child("Medicamentos").child(medicamentoId);
-                                medicamentoREF.removeValue();
-                            }
                             dialogregistro.dismiss();
 
                         }
@@ -423,8 +442,8 @@
         }
 
         public static class MedicamentosViewHolder extends RecyclerView.ViewHolder{
-            TextView dosisintervalo,medicamentonombre,horaaplicacion,siguientemedicamento;
-            ImageView icon_edit,icn_registrar,icon_historial;
+            TextView dosisintervalo,medicamentonombre,horaaplicacion,siguientemedicamento,tomadoexpirado;
+            ImageView icon_edit,icn_registrar,icon_historial,icon_delete;
             List<Historialmedicamento> historialmedicamentoList;
             Historial_adaptador historial_adaptador;
             public MedicamentosViewHolder(@NonNull View itemView) {
@@ -436,6 +455,9 @@
                 icon_edit = itemView.findViewById(R.id.icon_edit);
                 icn_registrar= itemView.findViewById(R.id.icn_registrar);
                 icon_historial = itemView.findViewById(R.id.icon_historial);
+                tomadoexpirado = itemView.findViewById(R.id.tomadoexpirado);
+                icon_delete = itemView.findViewById(R.id.icon_delete);
+
                //recycler y adaptador
                 historialmedicamentoList = new ArrayList<>();
 

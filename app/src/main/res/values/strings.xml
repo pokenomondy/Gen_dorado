@@ -54,6 +54,6 @@
     <string name="tiempotext">Tiempo:</string>
     <string name="historialedicamento">Historial</string>
     <string name="registroTomado">Registrar medicamento Tomado</string>
-
+    <string name="yatomado">TOMADO</string>
 
 </resources>

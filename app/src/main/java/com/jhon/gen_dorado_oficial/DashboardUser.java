@@ -21,6 +21,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class DashboardUser extends AppCompatActivity {
 
     /*/inicializamos base de datos/*/
@@ -31,7 +33,7 @@ public class DashboardUser extends AppCompatActivity {
 
     //Inicialozamos variables de show
     TextView shownombre,showapellido,showrol,showcedula;
-    ImageView imgperfil;
+    CircleImageView imgperfil;
     Button cerrarsesion,btneditarinfo,btn_regresar_dash;
     Toolbar toolbar_dashboard;
 
@@ -100,6 +102,8 @@ public class DashboardUser extends AppCompatActivity {
                     String fotoperfil = ""+ds.child("imagen").getValue();
                     String cedula = ""+ds.child("num_cedula").getValue();
                     String rol = ""+ds.child("rol").getValue();
+                    String imagen = ""+ds.child("imagen").getValue();
+
                     //INCRUSTAR DATOS EN VISTAS OBLIGADO
                     shownombre.setText(nombre);
                     showapellido.setText(apellido);
@@ -109,7 +113,11 @@ public class DashboardUser extends AppCompatActivity {
                     //IMAGEN
                     try{
                         //Si existe iagen en la base de datos
-                        Picasso.get().load(fotoperfil).placeholder(R.drawable.userprefault).into(imgperfil);
+                        Picasso.get().
+                                load(fotoperfil)
+                                .placeholder(R.drawable.userprefault)
+                                .resize(500,500)
+                                .into(imgperfil);
                     }catch (Exception e){
                         //Si no existe imagen en base de datos, mostrar comun
                         Picasso.get().load(R.drawable.userprefault).into(imgperfil);

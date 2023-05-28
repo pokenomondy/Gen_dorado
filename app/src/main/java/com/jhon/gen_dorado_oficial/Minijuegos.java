@@ -19,7 +19,6 @@ public class Minijuegos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_minijuegos);
         btnRecordar_Patrones = findViewById(R.id.RecordarPatrones);
-        btnMinJuego2 = findViewById(R.id.Minijuego2);
         init();
         //modificar color y nombre del toolbar
         toolbar_minijuegos = findViewById(R.id.toolbar_minijuegos);
