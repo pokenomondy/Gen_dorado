@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, Verificar_numero.class);
                 intent.putExtra(verificacionId, mVerificationId);
                 startActivity(intent);
+                finish();
             }
         };
 

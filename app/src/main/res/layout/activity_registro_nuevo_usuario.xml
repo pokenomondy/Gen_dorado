@@ -19,12 +19,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.833">
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
@@ -32,28 +33,28 @@
 
                 <TextView
                     android:id="@+id/textnombre"
+                    style="@style/textvirestilotextos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Nombres"
                     tools:layout_editor_absoluteX="47dp"
-                    tools:layout_editor_absoluteY="271dp"
-                    style="@style/textvirestilotextos"/>
+                    tools:layout_editor_absoluteY="271dp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             <EditText
                 android:id="@+id/editnombre"
+                style="@style/texview_morado_rendondo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/ingresesunombre"
                 android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="141dp"
-                tools:layout_editor_absoluteY="277dp"
-                style="@style/texview_morado_rendondo"
+                android:padding="20px"
                 android:textAlignment="center"
-                android:padding="20px"/>
+                tools:layout_editor_absoluteX="141dp"
+                tools:layout_editor_absoluteY="277dp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -69,29 +70,27 @@
 
                 <TextView
                     android:id="@+id/textapellido"
+                    style="@style/textvirestilotextos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/apellidos"
                     tools:layout_editor_absoluteX="47dp"
-                    tools:layout_editor_absoluteY="271dp"
-                    style="@style/textvirestilotextos"/>
-
+                    tools:layout_editor_absoluteY="271dp" />
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-
             <EditText
                 android:id="@+id/editapellido"
+                style="@style/texview_morado_rendondo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/ingresesusapelldios"
                 android:inputType="textPersonName"
                 tools:layout_editor_absoluteX="141dp"
-                tools:layout_editor_absoluteY="277dp"
-                style="@style/texview_morado_rendondo"/>
+                tools:layout_editor_absoluteY="277dp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -106,27 +105,27 @@
 
                 <TextView
                     android:id="@+id/textcedula"
+                    style="@style/textvirestilotextos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cedula"
                     tools:layout_editor_absoluteX="47dp"
-                    tools:layout_editor_absoluteY="271dp"
-                    style="@style/textvirestilotextos"/>
+                    tools:layout_editor_absoluteY="271dp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             <EditText
                 android:id="@+id/editcedula"
+                style="@style/texview_morado_rendondo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/ingresesucedula"
                 android:inputType="number"
                 tools:layout_editor_absoluteX="141dp"
-                tools:layout_editor_absoluteY="277dp"
 
-                style="@style/texview_morado_rendondo"/>
+                tools:layout_editor_absoluteY="277dp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -141,12 +140,12 @@
 
                 <TextView
                     android:id="@+id/textrol"
+                    style="@style/textvirestilotextos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/rol"
                     tools:layout_editor_absoluteX="47dp"
-                    tools:layout_editor_absoluteY="271dp"
-                    style="@style/textvirestilotextos"/>
+                    tools:layout_editor_absoluteY="271dp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -159,12 +158,13 @@
                 app:layout_constraintBottom_toTopOf="@+id/btnactinfo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:dropDownItemStyle="@style/MySpinnerDropdownStyle" />
+
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-
 
     <Button
         android:id="@+id/btnactinfo"

@@ -126,7 +126,6 @@
 
             });
 
-            //Verificar si el usuario ya se tomo todas las dosis
             String uidusuario = medicamento.getUiseruid();
             //NOTIFICADOR
             long time = medicamento.obtenerMillis();
@@ -170,7 +169,6 @@
                 holder.icon_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        FirebaseAuth firebaseAuth;
                         FirebaseDatabase firebaseDatabase;
                         DatabaseReference BASE_DE_DATOS;
                         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -213,9 +211,6 @@
                     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                     FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
                     BASE_DE_DATOS = firebaseDatabase.getReference("USUARIOS");
-                    BASE_DE_DATOSDOS = firebaseDatabase.getReference().getRoot();
-
-                    //Separar entre acudiente y paciente
                     BASE_DE_DATOS.child(uidusuario).child("Medicamentos").child(medicamentoId).child("Historialmedicamento").addValueEventListener(new ValueEventListener() {
 
                         @Override

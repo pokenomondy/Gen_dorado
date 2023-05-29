@@ -11,6 +11,7 @@
         layout="@layout/toolbar_home"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -26,15 +27,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bienbenida_medicamentos"
             android:layout_marginLeft="20dp"
-            android:textSize="15sp"/>
+            android:text="@string/bienbenida_medicamentos"
+            android:textSize="15sp"
+            style="@style/textatracctivp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_medicamentos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:visibility="gone" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -47,6 +50,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_add"
         android:id="@+id/floatbuttonmedicamento"/>
+
+    <ImageView
+        android:id="@+id/opps"
+        android:layout_width="308dp"
+        android:layout_height="402dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.541"
+        app:srcCompat="@drawable/opps" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
