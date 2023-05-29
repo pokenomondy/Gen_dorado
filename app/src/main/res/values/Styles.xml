@@ -109,4 +109,12 @@
         <item name="android:textSize">20sp</item> <!-- Tamaño del texto -->
     </style>
 
+    <style name="textatracctivp">
+        <item name="android:background">@drawable/fondo_morado_gradiente</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
 </resources>
