@@ -18,7 +18,7 @@ public class Medicamentos {
 
     private  String id; //Variable de id del nodo, para poder entrar
     int num_tomado ; //numero pastilla tomado
-        String uiseruid;
+    String uiseruid;
 
 
     public Medicamentos() {

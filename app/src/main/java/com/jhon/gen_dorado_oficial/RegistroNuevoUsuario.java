@@ -52,9 +52,6 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
     FirebaseUser firebaseUser;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference BASE_DE_DATOS;
-
-
-
     String cedulaverificar;
 
     //Variables para foto
@@ -79,7 +76,6 @@ public class RegistroNuevoUsuario extends AppCompatActivity {
         editcedula = findViewById(R.id.editcedula);
         imgmostrarprimero = findViewById(R.id.imgmostrarprimero);
 
-        cedulaverificar = "nombreimposiblequepongaesto";
         //Spinner para el rol
         spinnerrol = findViewById(R.id.spinerrol);
         String [] rolspinnerrespuestas = {"Paciente","Acudiente"};

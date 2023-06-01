@@ -114,6 +114,8 @@
                         }else {
                             holder.icon_edit.setVisibility(View.INVISIBLE);
                             holder.icn_registrar.setVisibility(View.INVISIBLE);
+                            holder.icon_delete.setVisibility(View.INVISIBLE);
+                            holder.tomadoexpirado.setVisibility(View.INVISIBLE);
                         }
 
                     }
@@ -162,10 +164,35 @@
 
             //Tomado expirado
             if (dosisactual==medicamento.getNum_tomado()){
-                holder.tomadoexpirado.setVisibility(View.VISIBLE);
-                holder.icon_edit.setVisibility(View.GONE);
-                holder.icn_registrar.setVisibility(View.GONE);
-                holder.icon_delete.setVisibility(View.VISIBLE);
+
+                Query verificar = BASE_DE_DATOS.orderByChild("Numero de celular").equalTo(firebaseUser.getPhoneNumber());
+                verificar.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //iterar para buscar por numero de celular
+                        for (DataSnapshot ds : snapshot.getChildren()){
+                            //OBTENER VALORES DE BASE DA DATOS
+                            String rol = ""+ds.child("rol").getValue();
+
+                            if (rol.equals("Paciente")){
+                                holder.tomadoexpirado.setVisibility(View.VISIBLE);
+                                holder.icon_edit.setVisibility(View.GONE);
+                                holder.icn_registrar.setVisibility(View.GONE);
+                                holder.icon_delete.setVisibility(View.VISIBLE);
+                            }else {
+
+                            }
+
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+
+
+                });
+
                 holder.icon_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
